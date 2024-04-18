@@ -2,7 +2,7 @@
   "name": "appenglishplis",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
-  "contributors": [{"name": "cesar morales","email": "cesarmoralesc2020@gmail.com"},{"name": "yurimar munñz","email": "yurimar2003@gmail.com"},{"name" : "emmanuel chacon","email": "emmanuelechra@gmail.com"],
+  "contributors": [{"name": "cesar morales","email": "cesarmoralesc2020@gmail.com"},{"name": "yurimar munñz","email": "yurimar2003@gmail.com"},{"name" : "emmanuel chacon","email": "emmanuelechra@gmail.com"}],
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
