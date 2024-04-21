@@ -1,0 +1,105 @@
+import React from 'react'
+import { Image, ScrollView, Text, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native'
+import { RoundedButton } from '../../../Presentation/components/RoundedButton';
+import useViewModel from './ViewModel'
+import { CustomTextInput } from '../../components/CustomTextInput';
+import styles from "./Styles";
+
+
+export default function RegisterScreen() {
+
+  const {fullName, email, phone, password, confirmPassword, onChange, register}= useViewModel();
+
+  return (  
+      <View style={styles.container}>
+        <Image
+          source={require('../../../../assets/background-login.png')}
+          style={styles.imageBackground}
+        />
+    
+        {/* LOGO SUPERIOR CENTRAL */}
+        <View style={styles.logoContainer}>
+          <Image
+            source={require("../../../../assets/user_image.png")}
+            style={styles.logoImage}
+          />
+          <Text style={styles.logoText}>Select a picture</Text>
+        </View>
+    
+        {/* COMIENZA FORMULARIO */}
+          <View style={styles.form}>    
+            <Text style={styles.formText}>Sign Up!</Text>
+
+            {/* COMIENZA SGUNDO INPUT */}
+            <Text style={styles.formTextTitleInput}>Full name</Text>
+
+            <CustomTextInput
+            image={require('../../../../assets/my_user.png')}
+            placeholder='Full name'
+            keyboardType='default'
+            value={fullName}
+            property='fullName'
+            onChangeText={onChange}
+            />
+
+            {/* COMIENZA TERCER INPUT */}
+            <Text style={styles.formTextTitleInput}>Email</Text>
+
+            <CustomTextInput
+            image={require('../../../../assets/email.png')}
+            placeholder='example@gmail.com'
+            keyboardType='email-address'
+            value={email}
+            property='email'
+            onChangeText={onChange}
+            />
+
+            {/* COMIENZA CUARTO INPUT */}
+            <Text style={styles.formTextTitleInput}>Your phone number</Text>
+
+            <CustomTextInput
+            image={require('../../../../assets/phone.png')}
+            placeholder='(+12) 345-67890'
+            keyboardType='numeric'
+            value={phone}
+            property='phone'
+            onChangeText={onChange}
+            />
+
+            {/* COMIENZA QUINTO INPUT */}
+            <Text style={styles.formTextTitleInput}>Password</Text>
+
+            <CustomTextInput
+            image={require('../../../../assets/password.png')}
+            placeholder='More than 8 characters'
+            keyboardType='default'
+            secureTextEntry={true}
+            value={password}
+            property='password'
+            onChangeText={onChange}
+            />
+
+            {/* COMIENZA SEXTO INPUT */}
+            <Text style={styles.formTextTitleInput}>Confirm password</Text>
+
+            <CustomTextInput
+            image={require('../../../../assets/confirm_password.png')}
+            placeholder='Confirm password'
+            keyboardType='default'
+            secureTextEntry={true}
+            value={confirmPassword}
+            property='confirmPassword'
+            onChangeText={onChange}
+            />
+
+      
+            {/* COMIENZA BOTON */}
+            <View>
+              <RoundedButton text='Sign up' onPress={() => register() } />
+            </View>
+      
+          </View>
+      </View> 
+  );        
+}      
+    
