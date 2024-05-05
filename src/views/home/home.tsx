@@ -7,6 +7,13 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../App';
 
 export const HomeScreen = () => {
+// Parte de Alex verificar si es prof o estudiante
+
+  const onSubmit = () => {
+    return navigation.navigate('ClassesScreen', {
+      isTeacher: false
+    })
+  }
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   return (
@@ -63,7 +70,7 @@ export const HomeScreen = () => {
   
         {/* COMIENZA BOTON */}
         <View>
-          <RoundedButton text='Get in' onPress={() => ToastAndroid.show('HOLA', ToastAndroid.SHORT)} />
+          <RoundedButton text='Get in' onPress={onSubmit} />
         </View>
   
         {/* COMIENZA TEXTO FINAL */}
