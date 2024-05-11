@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Image, ScrollView, Text, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import { RoundedButton } from '../../../Presentation/components/RoundedButton';
 import useViewModel from './ViewModel'
@@ -8,7 +8,15 @@ import styles from "./Styles";
 
 export default function RegisterScreen() {
 
-  const {fullName, email, phone, password, confirmPassword, onChange, register}= useViewModel();
+  const {full_name, email, numero, password, confirmPassword, onChange, register, errorMessage}= useViewModel();
+
+  useEffect(() => 
+    {
+      if(errorMessage)
+        {
+          ToastAndroid.show(errorMessage,ToastAndroid.LONG);
+        }
+    },[errorMessage])
 
   return (  
       <View style={styles.container}>
@@ -25,9 +33,10 @@ export default function RegisterScreen() {
           />
           <Text style={styles.logoText}>Select a picture</Text>
         </View>
-    
+
         {/* COMIENZA FORMULARIO */}
           <View style={styles.form}>    
+            <ScrollView>
             <Text style={styles.formText}>Sign Up!</Text>
 
             {/* COMIENZA SGUNDO INPUT */}
@@ -37,8 +46,8 @@ export default function RegisterScreen() {
             image={require('../../../../assets/my_user.png')}
             placeholder='Full name'
             keyboardType='default'
-            value={fullName}
-            property='fullName'
+            value={full_name}
+            property='full_name'
             onChangeText={onChange}
             />
 
@@ -61,8 +70,8 @@ export default function RegisterScreen() {
             image={require('../../../../assets/phone.png')}
             placeholder='(+12) 345-67890'
             keyboardType='numeric'
-            value={phone}
-            property='phone'
+            value={numero}
+            property='numero'
             onChangeText={onChange}
             />
 
@@ -95,9 +104,9 @@ export default function RegisterScreen() {
       
             {/* COMIENZA BOTON */}
             <View>
-              <RoundedButton text='Sign up' onPress={() => register() } />
+              <RoundedButton text='Sign up' onPress={() => register()} />
             </View>
-      
+            </ScrollView>
           </View>
       </View> 
   );        

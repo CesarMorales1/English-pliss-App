@@ -9,7 +9,7 @@ export type RootStackParamList = {
   //aqui definimos que tipos de datos van a recibir esas pantallas
   HomeScreen: undefined,
   RegisterScreen: undefined,
-  VideoClassScreen: undefined,
+  //VideoClassScreen: undefined,
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -21,14 +21,14 @@ const App = () => {
         headerShown: false
       }}>
         {/* LLAMADO AL VIDEO */}
-        {<Stack.Screen
+{/*         {<Stack.Screen
           name="VideoClassScreen"
           component={VideoClassScreen}
           options={{
             headerShown: true,
             title: 'VideoClassScreen'
           }}
-        />}
+        />} */}
         {/* LLAMADO AL LOGIN */}
         <Stack.Screen
           name="HomeScreen"

@@ -8,4 +8,9 @@ export const MyColors = {
     background: '#EBEBEB', //gris, para inputs o backgrounds
     grey: '#9393A3', //gris, para inputs o backgrounds
 
+    primaryClasses: '#224BF4', //azul de las clases
+    secondaryClasses: '#9663fa', //rosado para las clases vistas
+    tertiaryClasses: '#B8B8D2', //gris 
+
+
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { View, Image, Text, TextInput, ToastAndroid, TouchableOpacity } from 'react-native'
 import { RoundedButton } from '../../../Presentation/components/RoundedButton';
@@ -10,9 +10,25 @@ import styles from "./Styles";
 
 export const HomeScreen = () => {
 
-  const {email,password, onChange} = useViewModel();
+  // Parte de Alex verificar si es prof o estudiante
+
+  // const onSubmito = () => {
+  //   return navigation.navigate('ClassesScreen', {
+  //     isTeacher: false
+  //   })
+  // }
+
+  const {email,password, onChange,errorMessage,login} = useViewModel();
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  useEffect(() => 
+  {
+    if(errorMessage)
+      {
+        ToastAndroid.show(errorMessage, ToastAndroid.LONG);
+      }
+  },[errorMessage])
 
   return (
     <View style={styles.container}>
@@ -63,7 +79,7 @@ export const HomeScreen = () => {
         {/* COMIENZA BOTON */}
         <View>
           {/* MOSTRAR CON UN ALERT EL VALOR DE LOS INPUTS */}
-          <RoundedButton text='Get in' onPress={ () => ToastAndroid.show('Email: '+ email + ' Password: '+ password, ToastAndroid.SHORT)} />
+          <RoundedButton text='Get in' onPress={() => login()} />
         </View>
 
 
