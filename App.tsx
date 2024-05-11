@@ -6,12 +6,14 @@ import RegisterScreen from './src/Presentation/views/register/Register';
 import ClassesScreen from './src/Presentation/views/classes/Classes'
 
 import { MenuProvider } from 'react-native-popup-menu';
+import { ProfileUserScreen } from './src/Presentation/views/profile/info/profileInfo';
 
 export type RootStackParamList = {
   //aqui definimos que tipos de datos van a recibir esas pantallas
   HomeScreen: undefined,
   RegisterScreen: undefined,
   ClassesScreen: { isTeacher: boolean }
+  ProfileInfoScreen: undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -41,6 +43,11 @@ const App = () => {
           <Stack.Screen
             name="ClassesScreen"
             component={ClassesScreen}
+          />
+          {/* LLAMADO A Perfil colocar aqui TODO:lo de alex*/}
+          <Stack.Screen
+            name="ProfileInfoScreen"
+            component={ProfileUserScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>

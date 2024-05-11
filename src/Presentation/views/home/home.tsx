@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { View, Image, Text, TextInput, ToastAndroid, TouchableOpacity } from 'react-native'
 import { RoundedButton } from '../../../Presentation/components/RoundedButton';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../../App';
 import useViewModel from './ViewModel'
 import { CustomTextInput } from '../../components/CustomTextInput';
 import styles from "./Styles";
 
-export const HomeScreen = () => {
+interface Props extends StackScreenProps<RootStackParamList, 'HomeScreen'>{};
+
+export const HomeScreen = ({navigation,route} : Props) => {
 
   // Parte de Alex verificar si es prof o estudiante
 
@@ -18,9 +20,7 @@ export const HomeScreen = () => {
   //   })
   // }
 
-  const {email,password, onChange,errorMessage,login} = useViewModel();
-
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const {email,password, onChange,errorMessage,login,user} = useViewModel();
 
   useEffect(() => 
   {
@@ -29,6 +29,15 @@ export const HomeScreen = () => {
         ToastAndroid.show(errorMessage, ToastAndroid.LONG);
       }
   },[errorMessage])
+
+  useEffect(() => {
+      if(user?.id_user && user?.session_token)
+        {
+          //TODO: Aqui colocar el nombre de la vista
+          navigation.navigate('ProfileInfoScreen');
+        } 
+  }, [user])
+  
 
   return (
     <View style={styles.container}>
