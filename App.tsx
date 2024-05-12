@@ -44,6 +44,7 @@ const App = () => {
             name="ClassesScreen"
             component={ClassesScreen}
           />
+          
           {/* LLAMADO A Perfil colocar aqui TODO:lo de alex*/}
           <Stack.Screen
             name="ProfileInfoScreen"

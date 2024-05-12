@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { ApiIngles } from "../../../Data/apiIngles";
 import { RegisterAuthUseCase } from "../../../Domain/useCase/auth/registerAuth";
+import * as ImagePicker from "expo-image-picker";
 
 
  const RegisterViewModel = () => {
@@ -11,7 +12,23 @@ import { RegisterAuthUseCase } from "../../../Domain/useCase/auth/registerAuth";
         numero: '',
         password: '',
         confirmPassword: '',
+        image: '',
     });
+
+    const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
+
+    const pickImage = async () => 
+        {
+            let result = await ImagePicker.launchImageLibraryAsync(
+                {
+                    mediaTypes: ImagePicker.MediaTypeOptions.All,
+                    allowsEditing: true,
+                    quality: 1,
+                })
+
+                //aqui quede en el video
+        }
+
     const onChange = (property:string, value: any) => {
         setValues({...values, [property]:value});
     }
