@@ -11,7 +11,7 @@ export const HomeScreen = () => {
 
   const onSubmit = () => {
     return navigation.navigate('ClassesScreen', {
-      isTeacher: false
+      isTeacher: true
     })
   }
 

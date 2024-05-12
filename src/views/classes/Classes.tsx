@@ -7,8 +7,10 @@ import {
 } from 'react-native'
 
 import ClassList from '../../components/ClassList'
+import Layout from '../../components/Layout'
 
 import { MyColors } from '../../theme/AppTheme'
+
 
 const screenWidth = Dimensions.get("screen").width
 
@@ -18,6 +20,20 @@ const classes = [
   { id: "03", title: "Sentences", viewed: false, duration: "06:10" },
   { id: "04", title: "Simple present", viewed: false, duration: "06:10" },
   { id: "05", title: "Simple past", viewed: false, duration: "06:10" },
+  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
+  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
+  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
+  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
+  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
+  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
+  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
+  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
+  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
+  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
+  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
+  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
+  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
+  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
   { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
 ]
 
@@ -60,76 +76,80 @@ export default function Classes({ route }: ClassesScreenProps) {
   }
 
   return (
-    <View style={styles.container}>
 
-      {/* TITULO */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>
-          Classes
-        </Text>
-        <TouchableOpacity style={[styles.addButton, { display: !isTeacher ? 'none': 'flex' }]}>
-          <Text style={styles.addButtonText}>
-            +
-          </Text>
-      </TouchableOpacity>
-      </View>
 
-      {/* CABECERA */}
-      <View style={[styles.items, { display: isTeacher ? "none" : "flex" }]}>
-        <TouchableOpacity 
-          style={
-            xPosition === 0 && { 
-              borderBottomWidth: 2, 
-              borderBottomColor: MyColors.primary 
-            }
-          }
-          onPress={() => ScrollTo(0)}
-        >
-          <Text style={styles.itemText}>
-            All
+    //Etiqueta de Layout para que se mumestre le menu en una vista(colocar el contenido de la vista dentro de layaut ojo el layaout ya trae el menu)
+    <Layout>
+      <View style={styles.main}>
+        {/* TITULO */}
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>
+            Classes
           </Text>
+          <TouchableOpacity style={[styles.addButton, { display: !isTeacher ? 'none': 'flex' }]}>
+            <Text style={styles.addButtonText}>
+              +
+            </Text>
         </TouchableOpacity>
+        </View>
+
+        {/* CABECERA */}
+        <View style={[styles.items, { display: isTeacher ? "none" : "flex" }]}>
+          <TouchableOpacity 
+            style={
+              xPosition === 0 && { 
+                borderBottomWidth: 2, 
+                borderBottomColor: MyColors.primary 
+              }
+            }
+            onPress={() => ScrollTo(0)}
+          >
+            <Text style={styles.itemText}>
+              All
+            </Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={
+              xPosition === screenWidth * 2 && { 
+                borderBottomWidth: 2, 
+                borderBottomColor: MyColors.primary 
+              }
+            }
+            onPress={() => ScrollTo(screenWidth * 2)}
+          >
+            <Text style={styles.itemText}>
+              Videos Viewed
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* CONTENIDO CON LA LISTA DE LOS DOS TIPOS DE CURSOS */}
+
+        <ScrollView 
+          ref={scrollViewRef} 
+          horizontal={true}
+          onScrollEndDrag={onEndScroll}
+        >
+
+          <ScrollView style={styles.classesContainer}>
+            <ClassList classes={classes} isTeacher={isTeacher} />
+          </ScrollView>
+
+          <ScrollView style={[styles.classesContainer, { display: isTeacher ? 'none' : 'flex' }]}>
+            <ClassList classes={classes.filter(classItem => classItem.viewed)} />
+          </ScrollView>
         
-        <TouchableOpacity 
-          style={
-            xPosition === screenWidth * 2 && { 
-              borderBottomWidth: 2, 
-              borderBottomColor: MyColors.primary 
-            }
-          }
-          onPress={() => ScrollTo(screenWidth * 2)}
-        >
-          <Text style={styles.itemText}>
-            Videos Viewed
-          </Text>
-        </TouchableOpacity>
-      </View>
+        </ScrollView>
+      </View> 
+    </Layout>
 
-      {/* CONTENIDO CON LA LISTA DE LOS DOS TIPOS DE CURSOS */}
-      <ScrollView 
-        ref={scrollViewRef} 
-        horizontal={true}
-        onScrollEndDrag={onEndScroll}
-      >
-
-        <View style={styles.classesContainer}>
-          <ClassList classes={classes} isTeacher={isTeacher} />
-        </View>
-
-        <View style={[styles.classesContainer, { display: isTeacher ? 'none' : 'flex' }]}>
-          <ClassList classes={classes.filter(classItem => classItem.viewed)} />
-        </View>
-
-      </ScrollView>
-
-    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 30,
+  main: {
+    flex: 0.9,
   },
   
   header: {
