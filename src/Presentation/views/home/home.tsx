@@ -34,7 +34,7 @@ export const HomeScreen = ({navigation,route} : Props) => {
       if(user?.id_user && user?.session_token)
         {
           //TODO: Aqui colocar el nombre de la vista
-          navigation.navigate('ProfileInfoScreen');
+          navigation.replace('ProfileInfoScreen');
         } 
   }, [user])
   

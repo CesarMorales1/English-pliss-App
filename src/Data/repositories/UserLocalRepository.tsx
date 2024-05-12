@@ -16,4 +16,9 @@ export class UserLocalRepositoryImpl implements userLocalInformation
         const data = await getItem('user');
         return JSON.parse(data as any);
     }
+
+     async removeUser(): Promise<void> {
+        const {removeUser} = localStorage();
+        await removeUser('user');
+    }
 }
