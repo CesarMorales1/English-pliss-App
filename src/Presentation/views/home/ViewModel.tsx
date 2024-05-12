@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { loginAuthCase } from '../../../Domain/useCase/auth/loginAuth';
 import { ToastAndroid } from 'react-native';
-import { saveUserUseCase } from '../../../Domain/useCase/userLocal/saveUser';
-import { getUserUseCase } from '../../../Domain/useCase/userLocal/getUser';
+import { saveUserLocalUseCase } from '../../../Domain/useCase/userLocal/saveUserLocal';
+import { getUserLocalUseCase } from '../../../Domain/useCase/userLocal/getUserLocal';
 import { useUserLocal } from '../../hooks/useUserLocal';
  const HomeViewModel = () => {
     const [errorMessage,setErrorMessage] = useState('');
@@ -11,7 +11,7 @@ import { useUserLocal } from '../../hooks/useUserLocal';
         password: '',
     });
 
-    const {user} = useUserLocal();
+    const {user,getUserSession} = useUserLocal();
     // console.log(`Usuario de session: ${JSON.stringify(user)}`);
 
     const onChange = (property:string, value: any) => {
@@ -28,7 +28,9 @@ import { useUserLocal } from '../../hooks/useUserLocal';
                             ToastAndroid.show(response.message,ToastAndroid.LONG);
                         }else
                         {
-                            await saveUserUseCase(response.data);
+                            await saveUserLocalUseCase(response.data);
+                            getUserSession();
+
                         }
                 }
         }
