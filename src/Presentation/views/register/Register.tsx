@@ -8,7 +8,7 @@ import styles from "./Styles";
 
 export default function RegisterScreen() {
 
-  const {full_name, email, numero, password, confirmPassword, onChange, register, errorMessage}= useViewModel();
+  const {full_name, email, numero, password, confirmPassword, onChange, register, errorMessage, pickImage,image}= useViewModel();
 
   useEffect(() => 
     {
@@ -27,10 +27,21 @@ export default function RegisterScreen() {
     
         {/* LOGO SUPERIOR CENTRAL */}
         <View style={styles.logoContainer}>
-          <Image
-            source={require("../../../../assets/user_image.png")}
+          <TouchableOpacity onPress={() => pickImage()}>
+            {
+              image === ""?
+              <Image
+              source={require("../../../../assets/user_image.png")}
+              style={styles.logoImage}
+            />
+            :
+            <Image
+            source={{uri: image}}
             style={styles.logoImage}
           />
+            }
+
+          </TouchableOpacity>
           <Text style={styles.logoText}>Select a picture</Text>
         </View>
 
