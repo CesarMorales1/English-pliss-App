@@ -3,7 +3,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { HomeScreen } from './src/Presentation/views/home/home';
 import RegisterScreen from './src/Presentation/views/register/Register';
-import ClassesScreen from './src/Presentation/views/classes/Classes'
+import ClassesScreen from './src/Presentation/views/classes/Classes';
+import VideoClassScreen from './src/Presentation/views/videoClass/VideoClass';
 
 import { MenuProvider } from 'react-native-popup-menu';
 import { ProfileUserScreen } from './src/Presentation/views/profile/info/profileInfo';
@@ -14,6 +15,7 @@ export type RootStackParamList = {
   RegisterScreen: undefined,
   ClassesScreen: { isTeacher: boolean }
   ProfileInfoScreen: undefined
+  VideoClassScreen: undefined,
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -25,6 +27,15 @@ const App = () => {
         <Stack.Navigator screenOptions={{
           headerShown: false
         }}>
+        {/* LLAMADO AL VIDEO */}
+{/*         {<Stack.Screen
+          name="VideoClassScreen"
+          component={VideoClassScreen}
+          options={{
+          headerShown: true,
+          title: 'VideoClassScreen'
+        }}
+        />} */}
           {/* LLAMADO AL LOGIN */}
           <Stack.Screen
             name="HomeScreen"
