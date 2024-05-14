@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { ApiIngles } from "../../../Data/apiIngles";
 import { RegisterAuthUseCase } from "../../../Domain/useCase/auth/registerAuth";
-
+import * as ImagePicker from "expo-image-picker"
 
  const RegisterViewModel = () => {
     const [errorMessage,setErrorMessage] = useState('');
@@ -10,8 +10,26 @@ import { RegisterAuthUseCase } from "../../../Domain/useCase/auth/registerAuth";
         email: '',
         numero: '',
         password: '',
+        image: '',
         confirmPassword: '',
     });
+
+    const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
+    const pickImage = async () => 
+        {
+            let result = await ImagePicker.launchImageLibraryAsync(
+                {mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                quality: 1,
+            });
+
+            if(!result.canceled)
+                {
+                    onChange('image',result.assets[0].uri);
+                    setFile(result.assets[0]);
+                }
+        }
+
     const onChange = (property:string, value: any) => {
         setValues({...values, [property]:value});
     }
@@ -58,7 +76,8 @@ import { RegisterAuthUseCase } from "../../../Domain/useCase/auth/registerAuth";
         ...values,
         onChange,
         register,
-        errorMessage
+        errorMessage,
+        pickImage
     }
 }
 

@@ -32,7 +32,7 @@ export default function CommentScreen() {
       
 
 return (
-    <MenuProvider>
+    <MenuProvider skipInstanceCheck>
         <ScrollView>
             <View style={styles.container}>
                 <View style={styles.containerRow}>
