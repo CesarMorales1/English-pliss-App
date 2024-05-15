@@ -1,0 +1,1 @@
+Aqui se mapea las respuestas del servidor

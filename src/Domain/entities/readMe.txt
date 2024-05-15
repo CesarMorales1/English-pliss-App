@@ -1,0 +1,1 @@
+Lo recomendado en entity son el mapeado de las tablas de la db
