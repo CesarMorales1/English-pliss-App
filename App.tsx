@@ -30,14 +30,14 @@ const App = () => {
           }}
         >
           {/* LLAMADO AL VIDEO */}
-          {/*         {<Stack.Screen
+          {/*          {<Stack.Screen
           name="VideoClassScreen"
           component={VideoClassScreen}
           options={{
           headerShown: true,
           title: 'VideoClassScreen'
         }}
-        />} */}
+        />}  */}
           {/* LLAMADO AL LOGIN */}
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           {/* LLAMADO AL REGISTER */}

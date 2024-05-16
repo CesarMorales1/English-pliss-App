@@ -1,8 +1,8 @@
 import { MyColors } from '../../../theme/AppTheme';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 
-const ClassesScreen = StyleSheet.create({
+const ResourceStyle = StyleSheet.create({
     container:{
         flex:1,
         flexDirection:'column',
@@ -21,7 +21,7 @@ const ClassesScreen = StyleSheet.create({
     textContainer: {
         flex: 1,
         marginLeft: 10,
-        flexDirection: 'column', // Asegura que los elementos estén apilados verticalmente
+        flexDirection: 'column',
       },
     textBook:{
         fontSize:18,
@@ -41,10 +41,6 @@ const ClassesScreen = StyleSheet.create({
         fontSize:17,
         color:MyColors.grey,
         marginLeft:10,
-        //marginRight:3,
-        //justifyContent: 'space-between', // O 'space-around'
-        //alignItems: 'center',
-
     },
     img: {
         height:18,
@@ -86,4 +82,4 @@ const ClassesScreen = StyleSheet.create({
       },
   });
 
-export default ClassesScreen;
+export default ResourceStyle;
