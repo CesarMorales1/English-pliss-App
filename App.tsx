@@ -28,14 +28,14 @@ const App = () => {
           headerShown: false
         }}>
         {/* LLAMADO AL VIDEO */}
-{/*         {<Stack.Screen
+{/*          {<Stack.Screen
           name="VideoClassScreen"
           component={VideoClassScreen}
           options={{
           headerShown: true,
           title: 'VideoClassScreen'
         }}
-        />} */}
+        />}  */}
           {/* LLAMADO AL LOGIN */}
           <Stack.Screen
             name="HomeScreen"
