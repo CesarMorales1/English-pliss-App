@@ -3,7 +3,7 @@ import {
 } from 'react-native'
 
 import { ClassProps } from './ClassList'
-
+// componente la clase  id..titulo
 // Libreria para mostrar menu - editar y eliminar
 import { Menu, MenuOption, MenuOptions, MenuTrigger } from 'react-native-popup-menu'
 
