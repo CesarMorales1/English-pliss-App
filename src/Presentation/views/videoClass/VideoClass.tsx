@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Video, ResizeMode } from 'expo-av';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -8,8 +8,21 @@ import { fetchClassInfo, fetchVideoInfo } from './ViewModel';
 import CommentsScreen from './commentsScreen/CommentsScreen';
 import styles from './Styles';
 import ResourcesScreen from './resourcesScreen/ResourcesScreen';
+import ClassScreen  from './classesScreen/ClassScreen';
+
 
 export default function VideoClassScreen() {
+
+  const classes = [
+    { id: "01", title: "Welcome to the course", viewed: true, duration: "06:10" },
+    { id: "02", title: "Verb To-Be English Plis", viewed: true, duration: "06:10" },
+    { id: "03", title: "Sentences", viewed: true, duration: "06:10" },
+    { id: "04", title: "Simple present", viewed: false, duration: "06:10" },
+    { id: "05", title: "Simple past", viewed: false, duration: "06:10" },
+    { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
+  ]
+  
+
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
@@ -39,10 +52,14 @@ export default function VideoClassScreen() {
   const renderSelectedView = () => {
     if (selectedView === 'classes') {
       return (
-        <View>
-          <Text>Vista de Clases</Text>
-        </View>
-      );
+      <View>
+        <ScrollView>
+          {classes.map((classItem, index) => (
+            <ClassScreen key={index} classItem={classItem} isTeacher={true} />
+          ))}
+        </ScrollView>
+      </View>      
+    );
     } else if (selectedView === 'comments') {
       return (
         <CommentsScreen />
