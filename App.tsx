@@ -30,7 +30,7 @@ const App = () => {
           }}
         >
           {/* LLAMADO AL VIDEO */}
-          {/*          {<Stack.Screen
+                   {/* {<Stack.Screen
           name="VideoClassScreen"
           component={VideoClassScreen}
           options={{
