@@ -9,6 +9,7 @@ import CommentsScreen from './commentsScreen/CommentsScreen';
 import styles from './Styles';
 import ResourcesScreen from './resourcesScreen/ResourcesScreen';
 import ClassScreen  from './classesScreen/ClassScreen';
+import Layout from '../../components/Layout';
 
 
 export default function VideoClassScreen() {
@@ -20,6 +21,8 @@ export default function VideoClassScreen() {
     { id: "04", title: "Simple present", viewed: false, duration: "06:10" },
     { id: "05", title: "Simple past", viewed: false, duration: "06:10" },
     { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
+    { id: "07", title: "Simple future", viewed: false, duration: "06:10" },
+    { id: "08", title: "Simple future", viewed: false, duration: "06:10" },
   ]
   
 
@@ -71,7 +74,10 @@ export default function VideoClassScreen() {
     }
   };
 
+
   return (
+
+    <Layout>   
     <View style={styles.container}>
       <View style={styles.videoContainer}>
         <View style={styles.videoWrapper}>
@@ -115,5 +121,7 @@ export default function VideoClassScreen() {
         </View>
       </View>
     </View>
+
+    </Layout> 
   );
 }
