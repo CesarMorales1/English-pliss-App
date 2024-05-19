@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -7,15 +7,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { RoundedButton } from "../../../Presentation/components/RoundedButton";
 import useViewModel from "./ViewModel";
 import { CustomTextInput } from "../../components/CustomTextInput";
 import styles from "./Styles";
-import { Picker } from "@react-native-picker/picker";
 
 export default function RegisterScreen() {
   const {
-    roles,
     full_name,
     email,
     numero,
@@ -26,6 +25,9 @@ export default function RegisterScreen() {
     errorMessage,
     pickImage,
     image,
+    roles,
+    selectedRoleId,
+    setSelectedRoleId,
   } = useViewModel();
 
   useEffect(() => {
@@ -41,7 +43,6 @@ export default function RegisterScreen() {
         style={styles.imageBackground}
       />
 
-      {/* LOGO SUPERIOR CENTRAL*/}
       <View style={styles.logoContainer}>
         <TouchableOpacity onPress={() => pickImage()}>
           {image === "" ? (
@@ -56,12 +57,10 @@ export default function RegisterScreen() {
         <Text style={styles.logoText}>Select a picture</Text>
       </View>
 
-      {/* COMIENZA FORMULARIO */}
       <View style={styles.form}>
         <ScrollView>
           <Text style={styles.formText}>Sign Up!</Text>
 
-          {/* Select Rol */}
           <View style={styles.formSelect}>
             <Image
               style={styles.formIcon}
@@ -69,8 +68,8 @@ export default function RegisterScreen() {
             />
             <Picker
               style={styles.formPicker}
-              selectedValue={null} // You can manage this state if needed
-              onValueChange={(itemValue) => onChange("id_rol", itemValue)}
+              selectedValue={selectedRoleId}
+              onValueChange={(itemValue) => setSelectedRoleId(itemValue)}
             >
               <Picker.Item
                 label="Selecciona un Rol"
@@ -88,9 +87,7 @@ export default function RegisterScreen() {
             </Picker>
           </View>
 
-          {/* COMIENZA SEGUNDO INPUT */}
           <Text style={styles.formTextTitleInput}>Full name</Text>
-
           <CustomTextInput
             image={require("../../../../assets/my_user.png")}
             placeholder="Full name"
@@ -100,9 +97,7 @@ export default function RegisterScreen() {
             onChangeText={onChange}
           />
 
-          {/* COMIENZA TERCER INPUT */}
           <Text style={styles.formTextTitleInput}>Email</Text>
-
           <CustomTextInput
             image={require("../../../../assets/email.png")}
             placeholder="example@gmail.com"
@@ -112,9 +107,7 @@ export default function RegisterScreen() {
             onChangeText={onChange}
           />
 
-          {/* COMIENZA CUARTO INPUT */}
           <Text style={styles.formTextTitleInput}>Your phone number</Text>
-
           <CustomTextInput
             image={require("../../../../assets/phone.png")}
             placeholder="(+12) 345-67890"
@@ -124,9 +117,7 @@ export default function RegisterScreen() {
             onChangeText={onChange}
           />
 
-          {/* COMIENZA QUINTO INPUT */}
           <Text style={styles.formTextTitleInput}>Password</Text>
-
           <CustomTextInput
             image={require("../../../../assets/password.png")}
             placeholder="More than 8 characters"
@@ -137,9 +128,7 @@ export default function RegisterScreen() {
             onChangeText={onChange}
           />
 
-          {/* COMIENZA SEXTO INPUT */}
           <Text style={styles.formTextTitleInput}>Confirm password</Text>
-
           <CustomTextInput
             image={require("../../../../assets/confirm_password.png")}
             placeholder="Confirm password"
@@ -150,7 +139,6 @@ export default function RegisterScreen() {
             onChangeText={onChange}
           />
 
-          {/* COMIENZA BOTON */}
           <View>
             <RoundedButton text="Sign up" onPress={() => register()} />
           </View>

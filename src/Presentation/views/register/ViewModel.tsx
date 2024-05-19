@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { ApiIngles } from "../../../Data/apiIngles";
-import { RegisterAuthUseCase } from "../../../Domain/useCase/auth/registerAuth";
-
-import * as ImagePicker from "expo-image-picker";
-// Import the implementation
 import { Role } from "../../../Domain/entities/Role";
-import { RoleRepositoryImplement } from "../../../Data/repositories/RoleRepositoryImplement";
-import { GetRolesUseCase } from "../../../Domain/useCase/auth/GetRolesUseCase";
+import axios from "axios";
+import * as ImagePicker from "expo-image-picker";
+import { RegisterAuthUseCase } from "../../../Domain/useCase/auth/registerAuth";
+import { AssignUserRoleUseCase } from "../../../Domain/useCase/auth/AssignUserRoleUseCase";
+import { UserRoleRepositoryImpl } from "../../../Data/repositories/UserRoleRepositoryImpl";
 
-const RegisterViewModel = () => {
+const useViewModel = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [values, setValues] = useState({
     full_name: "",
@@ -18,19 +16,17 @@ const RegisterViewModel = () => {
     image: "",
     confirmPassword: "",
   });
-
-  const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
-  const [roles, setRoles] = useState<Role[]>([]); // State for roles
+  const [selectedRoleId, setSelectedRoleId] = useState<number | null>(null);
+  const [roles, setRoles] = useState<Role[]>([]);
 
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const roleRepository = new RoleRepositoryImplement();
-        const getRolesUseCase = new GetRolesUseCase(roleRepository);
-        const roles = await getRolesUseCase.execute();
-        setRoles(roles);
+        const response = await axios.get("http://192.168.1.104:3000/v1/rol");
+        setRoles(response.data);
       } catch (error) {
         console.error("Error fetching roles:", error);
+        setErrorMessage("Error fetching roles");
       }
     };
     fetchRoles();
@@ -45,7 +41,6 @@ const RegisterViewModel = () => {
 
     if (!result.canceled) {
       onChange("image", result.assets[0].uri);
-      setFile(result.assets[0]);
     }
   };
 
@@ -55,8 +50,30 @@ const RegisterViewModel = () => {
 
   const register = async () => {
     if (isValidForm()) {
-      const apiResponse = await RegisterAuthUseCase(values);
-      console.log(`Result: ${JSON.stringify(apiResponse)}`);
+      try {
+        const apiResponse = await RegisterAuthUseCase(values);
+        if (apiResponse.success) {
+          const userId = apiResponse.data?.id; // Obtener el ID del usuario registrado
+          if (userId && selectedRoleId) {
+            console.log(`User ID: ${userId}, Role ID: ${selectedRoleId}`);
+            // Realizar la asignación del rol al usuario
+            const assignUserRoleUseCase = new AssignUserRoleUseCase(
+              new UserRoleRepositoryImpl()
+            );
+            await assignUserRoleUseCase.execute(userId, selectedRoleId);
+            setErrorMessage("Registration successful");
+          } else {
+            throw new Error("User ID or selected role ID is missing");
+          }
+        } else {
+          setErrorMessage(apiResponse.message);
+        }
+      } catch (error) {
+        console.error("Error registering user:", error);
+        setErrorMessage(
+          "An error occurred while registering. Please try again."
+        );
+      }
     }
   };
 
@@ -65,20 +82,28 @@ const RegisterViewModel = () => {
       setErrorMessage("Fullname can't be empty");
       return false;
     }
-    if (isNaN(Number(values.numero)) || !values.numero) {
-      setErrorMessage("Please enter a valid Number");
+    if (!values.email) {
+      setErrorMessage("Email can't be empty");
       return false;
     }
-    if (!values.password || !values.confirmPassword) {
-      setErrorMessage("Password can't be empty");
+    if (!values.numero) {
+      setErrorMessage("Number can't be empty");
+      return false;
+    }
+    if (isNaN(Number(values.numero))) {
+      setErrorMessage("Please enter a valid number");
+      return false;
+    }
+    if (!values.password || values.password.length < 8) {
+      setErrorMessage("Password must be at least 8 characters long");
       return false;
     }
     if (values.password !== values.confirmPassword) {
       setErrorMessage("The passwords are not equal");
       return false;
     }
-    if (!values.email) {
-      setErrorMessage("Email can't be empty");
+    if (!selectedRoleId) {
+      setErrorMessage("Please select a role");
       return false;
     }
     return true;
@@ -86,7 +111,9 @@ const RegisterViewModel = () => {
 
   return {
     ...values,
-    roles, // Expose roles
+    roles,
+    selectedRoleId,
+    setSelectedRoleId,
     onChange,
     register,
     errorMessage,
@@ -94,4 +121,4 @@ const RegisterViewModel = () => {
   };
 };
 
-export default RegisterViewModel;
+export default useViewModel;
