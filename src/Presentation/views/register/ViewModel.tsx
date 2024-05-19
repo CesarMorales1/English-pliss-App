@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { ApiIngles } from "../../../Data/apiIngles";
 import { RegisterAuthUseCase } from "../../../Domain/useCase/auth/registerAuth";
+import { RegisterWithImageUseCase } from "../../../Domain/useCase/auth/registerWithImageAuth";
 import * as ImagePicker from "expo-image-picker"
 
  const RegisterViewModel = () => {
@@ -29,6 +30,20 @@ import * as ImagePicker from "expo-image-picker"
                     setFile(result.assets[0]);
                 }
         }
+    const takePhoto = async () => 
+        {
+            let result = await ImagePicker.launchCameraAsync(
+                {mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                quality: 1,
+            });
+
+            if(!result.canceled)
+                {
+                    onChange('image',result.assets[0].uri);
+                    setFile(result.assets[0]);
+                }
+        }
 
     const onChange = (property:string, value: any) => {
         setValues({...values, [property]:value});
@@ -36,7 +51,9 @@ import * as ImagePicker from "expo-image-picker"
     const register = async () =>{
         if(isValidForm())
             {
-                const apiResponse = await RegisterAuthUseCase(values);
+                // const apiResponse = await RegisterAuthUseCase(values);
+                console.log(file);
+                const apiResponse = await RegisterWithImageUseCase(values,file!);
                 console.log(`Result: ${JSON.stringify(apiResponse)}`);
             }
             
@@ -69,6 +86,11 @@ import * as ImagePicker from "expo-image-picker"
                     setErrorMessage("email can't be empty");
                     return false;
                 }
+            if(!values.image)
+                {
+                    setErrorMessage("Selecciona una imagen");
+                    return false;
+                }
             return true;
         }
 
@@ -77,7 +99,8 @@ import * as ImagePicker from "expo-image-picker"
         onChange,
         register,
         errorMessage,
-        pickImage
+        pickImage,
+        takePhoto
     }
 }
 

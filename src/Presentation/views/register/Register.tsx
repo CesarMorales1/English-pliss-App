@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import { Image, ScrollView, Text, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import { RoundedButton } from '../../../Presentation/components/RoundedButton';
 import useViewModel from './ViewModel'
 import { CustomTextInput } from '../../components/CustomTextInput';
 import styles from "./Styles";
+import {ModalPickImage} from "../../components/modalPickImage";
 
 
 export default function RegisterScreen() {
 
-  const {full_name, email, numero, password, confirmPassword, onChange, register, errorMessage, pickImage,image}= useViewModel();
+  const {full_name, email, numero, password, confirmPassword, onChange, register, errorMessage, pickImage,image, takePhoto}= useViewModel();
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => 
     {
@@ -27,7 +29,7 @@ export default function RegisterScreen() {
     
         {/* LOGO SUPERIOR CENTRAL */}
         <View style={styles.logoContainer}>
-          <TouchableOpacity onPress={() => pickImage()}>
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
             {
               image === ""?
               <Image
@@ -119,6 +121,13 @@ export default function RegisterScreen() {
             </View>
             </ScrollView>
           </View>
+          <ModalPickImage 
+            openGallery={ pickImage }
+            openCamera ={ takePhoto }
+            setModalUseState = {setModalVisible}
+            modalUseState = {modalVisible}
+          />
+
       </View> 
   );        
 }      

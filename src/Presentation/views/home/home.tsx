@@ -14,11 +14,11 @@ export const HomeScreen = ({navigation,route} : Props) => {
 
   // Parte de Alex verificar si es prof o estudiante
 
-  // const onSubmito = () => {
-  //   return navigation.navigate('ClassesScreen', {
-  //     isTeacher: false
-  //   })
-  // }
+  const onSubmito = () => {
+    return navigation.navigate('ClassesScreen', {
+      isTeacher: false
+    })
+  }
 
   const {email,password, onChange,errorMessage,login,user} = useViewModel();
 
