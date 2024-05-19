@@ -41,7 +41,7 @@ export default function RegisterScreen() {
         style={styles.imageBackground}
       />
 
-      {/* LOGO SUPERIOR CENTRAL */}
+      {/* LOGO SUPERIOR CENTRAL*/}
       <View style={styles.logoContainer}>
         <TouchableOpacity onPress={() => pickImage()}>
           {image === "" ? (
