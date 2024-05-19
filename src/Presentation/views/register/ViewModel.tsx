@@ -15,35 +15,33 @@ import * as ImagePicker from "expo-image-picker"
         confirmPassword: '',
     });
 
-    const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
-    const pickImage = async () => 
-        {
-            let result = await ImagePicker.launchImageLibraryAsync(
-                {mediaTypes: ImagePicker.MediaTypeOptions.All,
-                allowsEditing: true,
-                quality: 1,
-            });
+    const [file, setFile] = useState<ImagePicker.ImagePickerAsset>()
 
-            if(!result.canceled)
-                {
-                    onChange('image',result.assets[0].uri);
-                    setFile(result.assets[0]);
-                }
-        }
-    const takePhoto = async () => 
-        {
-            let result = await ImagePicker.launchCameraAsync(
-                {mediaTypes: ImagePicker.MediaTypeOptions.All,
-                allowsEditing: true,
-                quality: 1,
-            });
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            quality: 1
+        });
 
-            if(!result.canceled)
-                {
-                    onChange('image',result.assets[0].uri);
-                    setFile(result.assets[0]);
-                }
+        if (!result.canceled) {    
+            console.log(result);       
+            onChange('image', result.assets[0].uri);
+            setFile(result.assets[0]);
         }
+    }
+    const takePhoto = async () => {
+        let result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            quality: 1
+        });
+
+        if (!result.canceled) {
+            onChange('image', result.assets[0].uri);
+            setFile(result.assets[0]);
+        }
+    }
 
     const onChange = (property:string, value: any) => {
         setValues({...values, [property]:value});
@@ -52,7 +50,6 @@ import * as ImagePicker from "expo-image-picker"
         if(isValidForm())
             {
                 // const apiResponse = await RegisterAuthUseCase(values);
-                console.log(file);
                 const apiResponse = await RegisterWithImageUseCase(values,file!);
                 console.log(`Result: ${JSON.stringify(apiResponse)}`);
             }
