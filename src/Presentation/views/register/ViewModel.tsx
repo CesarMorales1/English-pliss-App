@@ -21,11 +21,11 @@ import * as ImagePicker from "expo-image-picker"
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
-            quality: 1
+            quality: 1,
+            base64: true
         });
 
-        if (!result.canceled) {    
-            console.log(result);       
+        if (!result.canceled) {       
             onChange('image', result.assets[0].uri);
             setFile(result.assets[0]);
         }
@@ -34,7 +34,8 @@ import * as ImagePicker from "expo-image-picker"
         let result = await ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
-            quality: 1
+            quality: 1,
+            base64: true
         });
 
         if (!result.canceled) {

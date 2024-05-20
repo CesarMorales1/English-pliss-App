@@ -6,22 +6,19 @@ import { ResponseApi } from "../sources/remote/api/models/responseApi";
 import { ImagePickerAsset } from "expo-image-picker";
 import mime from "mime";
 
-const createBlobFromUri = async (uri: any) => {
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    return blob;
-  };
+
 
 export class AuthRepositoryImplement implements AuthRepository
 {  
     async registerWithImage(user: User, file: ImagePickerAsset): Promise<any> {
         try {
             const data = new FormData();
-            const fileBlob = await createBlobFromUri(file.uri);
+            const fileBase64 = file.base64; 
             const fileName = file.uri.split('/').pop();
             const fileType = mime.getType(file.uri);
 
-            data.append('image', fileBlob,fileName);
+
+            data.append('image',JSON.stringify(file));
             data.append('user', JSON.stringify(user));
 
             const response = await ApiInglesForImage.post<ResponseApi>('/auth/registerWithImage', data, {
