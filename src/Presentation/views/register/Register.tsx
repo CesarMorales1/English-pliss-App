@@ -1,15 +1,20 @@
 import React, { useEffect,useState } from 'react'
-import { Image, ScrollView, Text, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native'
+import { Image, ScrollView, Text, TextInput, ToastAndroid, TouchableOpacity, View, ActivityIndicator } from 'react-native'
 import { RoundedButton } from '../../../Presentation/components/RoundedButton';
 import useViewModel from './ViewModel'
 import { CustomTextInput } from '../../components/CustomTextInput';
 import styles from "./Styles";
 import {ModalPickImage} from "../../components/modalPickImage";
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../../App';
+import { MyColors } from '../../theme/AppTheme';
 
+//TODO: en las comillas va el nombre de la pantalla con la cual estamos trabajando
+interface Props extends StackScreenProps<RootStackParamList,"RegisterScreen">{};
 
-export default function RegisterScreen() {
+export default function RegisterScreen({navigation, route}: Props) {
 
-  const {full_name, email, numero, password, confirmPassword, onChange, register, errorMessage, pickImage,image, takePhoto}= useViewModel();
+  const {full_name, email, numero, password, confirmPassword, onChange, register, errorMessage, loadingElement,pickImage,image, takePhoto,user}= useViewModel();
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => 
@@ -19,6 +24,16 @@ export default function RegisterScreen() {
           ToastAndroid.show(errorMessage,ToastAndroid.LONG);
         }
     },[errorMessage])
+
+    useEffect(() => {
+      console.log(JSON.stringify(user));
+      if(user?.id_user && user?.session_token)
+        {
+          //TODO: Aqui colocar el nombre de la vista
+          navigation.replace('ProfileInfoScreen');
+        } 
+  }, [user])
+  
 
   return (  
       <View style={styles.container}>
@@ -127,6 +142,14 @@ export default function RegisterScreen() {
             setModalUseState = {setModalVisible}
             modalUseState = {modalVisible}
           />
+          {
+            loadingElement &&
+            <ActivityIndicator 
+            style={ styles.loading }
+            size="large" 
+            color={MyColors.primaryClasses} />
+
+          }
 
       </View> 
   );        

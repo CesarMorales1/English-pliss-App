@@ -3,6 +3,8 @@ import { ApiIngles } from "../../../Data/apiIngles";
 import { RegisterAuthUseCase } from "../../../Domain/useCase/auth/registerAuth";
 import { RegisterWithImageUseCase } from "../../../Domain/useCase/auth/registerWithImageAuth";
 import * as ImagePicker from "expo-image-picker"
+import { saveUserLocalUseCase } from "../../../Domain/useCase/userLocal/saveUserLocal";
+import { useUserLocal } from "../../hooks/useUserLocal";
 
  const RegisterViewModel = () => {
     const [errorMessage,setErrorMessage] = useState('');
@@ -14,8 +16,11 @@ import * as ImagePicker from "expo-image-picker"
         image: '',
         confirmPassword: '',
     });
+    
+    const [loadingElement, setloadingElement] = useState(false);
 
     const [file, setFile] = useState<ImagePicker.ImagePickerAsset>()
+    const {user,getUserSession} = useUserLocal();
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -50,9 +55,20 @@ import * as ImagePicker from "expo-image-picker"
     const register = async () =>{
         if(isValidForm())
             {
+                setloadingElement(true);
                 // const apiResponse = await RegisterAuthUseCase(values);
                 const apiResponse = await RegisterWithImageUseCase(values,file!);
-                console.log(`Result: ${JSON.stringify(apiResponse)}`);
+                setloadingElement(false)
+                // console.log(`Result: ${JSON.stringify(apiResponse)}`);
+                if(apiResponse.success)
+                    {
+                        console.log('Aqui la respuesta de la api', apiResponse.data);
+                        await saveUserLocalUseCase(apiResponse.data);
+                        getUserSession();
+                    }else
+                    {
+                        setErrorMessage(JSON.stringify(apiResponse.respuesta));
+                    }
             }
             
     }
@@ -98,7 +114,9 @@ import * as ImagePicker from "expo-image-picker"
         register,
         errorMessage,
         pickImage,
-        takePhoto
+        takePhoto,
+        user,
+        loadingElement
     }
 }
 
