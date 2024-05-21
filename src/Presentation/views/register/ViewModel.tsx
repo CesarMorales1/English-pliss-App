@@ -9,6 +9,7 @@ import { RoleRepositoryImplement } from "../../../Data/repositories/RoleReposito
 import { GetRolesUseCase } from "../../../Domain/useCase/auth/GetRolesUseCase";
 
 const RegisterViewModel = () => {
+  //TODO: agregar validacion del select
   const [errorMessage, setErrorMessage] = useState("");
   const [values, setValues] = useState({
     full_name: "",

@@ -56,14 +56,14 @@ const App = () => {
 
           {/* LLAMADO A Roles */}
           {
-            <Stack.Screen
-              name="RoleScreen"
-              component={RoleScreen}
-              options={{
-                headerShown: true,
-                title: "Sign Up",
-              }}
-            />
+            // <Stack.Screen
+            //   name="RoleScreen"
+            //   component={RoleScreen}
+            //   options={{
+            //     headerShown: true,
+            //     title: "Sign Up",
+            //   }}
+            // />
           }
           {/* LLAMADO A CLASES */}
           <Stack.Screen name="ClassesScreen" component={ClassesScreen} />

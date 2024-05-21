@@ -104,7 +104,7 @@ export const HomeScreen = ({ navigation, route }: Props) => {
         {/* COMIENZA TEXTO FINAL */}
         <View style={styles.formSignUp}>
           <Text>Already have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("RoleScreen")}>
+          <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
             <Text style={styles.formSignUptext2}>Sign up!</Text>
           </TouchableOpacity>
         </View>
