@@ -29,8 +29,8 @@ export default function RegisterScreen({navigation, route}: Props) {
       console.log(JSON.stringify(user));
       if(user?.id_user && user?.session_token)
         {
-          //TODO: Aqui colocar el nombre de la vista
-          navigation.replace('ProfileInfoScreen');
+          //TODO: Aqui colocar el nombre de la vista alex si quieres ver estudiante cambia aqui
+          navigation.replace('ClassesScreen',{isTeacher: true});
         } 
   }, [user])
   
@@ -154,4 +154,3 @@ export default function RegisterScreen({navigation, route}: Props) {
       </View> 
   );        
 }      
-    

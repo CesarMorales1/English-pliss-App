@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 const VideoClassStyles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 0.9,
     },
     videoContainer: {
         flex: 3, // 30% de la pantalla

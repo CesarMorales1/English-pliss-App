@@ -6,10 +6,15 @@ import styles from "./Styles";
 import { Menu, MenuOption, MenuOptions, MenuTrigger } from 'react-native-popup-menu';
 import { MenuProvider } from 'react-native-popup-menu';
 import CommentViewModel from './ViewModel'
+import { truncateText } from '../../../components/TruncateText';
 
 
-
-export default function CommentScreen() {
+export default function ResourceScreen() {    
+    /* PARA TRUNCAR */
+    const [isExpanded, setIsExpanded] = useState(false);
+    const toggleExpand = () => {
+        setIsExpanded(!isExpanded);
+    };
 
     const viewModel = CommentViewModel();
     const [resourceInfo, setResourceInfo] = useState<any>(null);
@@ -47,7 +52,13 @@ return (
                     <View style={styles.textContainer}>
                         <Text style={styles.textBook}>{resourceInfo?.nameBook}</Text>
                         <Text style={styles.textMins}>{resourceInfo?.timePublic}</Text>
-                        <Text style={styles.textComment}>{resourceInfo?.aboutSource}</Text>
+                        
+                        <TouchableOpacity onPress={toggleExpand}>
+                            <Text style={styles.textComment}>
+                            {isExpanded ? resourceInfo?.aboutSource : truncateText(resourceInfo?.aboutSource, 30)}
+                            </Text>
+                        </TouchableOpacity>
+{/*                         <Text style={styles.textComment}>{resourceInfo?.aboutSource}</Text> */}
                     </View>
 
                     <Menu>

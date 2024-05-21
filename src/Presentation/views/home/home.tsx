@@ -14,11 +14,11 @@ export const HomeScreen = ({navigation,route} : Props) => {
 
   // Parte de Alex verificar si es prof o estudiante
 
-  const onSubmito = () => {
-    return navigation.navigate('ClassesScreen', {
-      isTeacher: false
-    })
-  }
+    //   const onSubmito = () => {
+    //     return navigation.navigate('ClassesScreen', {
+    //       isTeacher: true
+    //     })
+    // }
 
   const {email,password, onChange,errorMessage,login,user} = useViewModel();
 
@@ -34,7 +34,7 @@ export const HomeScreen = ({navigation,route} : Props) => {
       if(user?.id_user && user?.session_token)
         {
           //TODO: Aqui colocar el nombre de la vista
-          navigation.replace('ProfileInfoScreen');
+          navigation.replace('ClassesScreen',{isTeacher: true});
         } 
   }, [user])
   
@@ -88,7 +88,7 @@ export const HomeScreen = ({navigation,route} : Props) => {
         {/* COMIENZA BOTON */}
         <View>
           {/* MOSTRAR CON UN ALERT EL VALOR DE LOS INPUTS */}
-          <RoundedButton text='Get in' onPress={() => login()} />
+          <RoundedButton text='Get in' onPress={() => login()} /> 
         </View>
 
 
@@ -110,6 +110,7 @@ export const HomeScreen = ({navigation,route} : Props) => {
   
       </View>
     </View>
+
   );        
 }      
  
