@@ -38,7 +38,7 @@ export const HomeScreen = ({ navigation, route }: Props) => {
   useEffect(() => {
     if (user?.id_user && user?.session_token) {
       //TODO: Aqui colocar el nombre de la vista
-      navigation.replace("ProfileInfoScreen");
+      navigation.replace("ProfileInfoScreens");
     }
   }, [user]);
 
@@ -104,7 +104,9 @@ export const HomeScreen = ({ navigation, route }: Props) => {
         {/* COMIENZA TEXTO FINAL */}
         <View style={styles.formSignUp}>
           <Text>Already have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ProfileInfoScreenEdit")}
+          >
             <Text style={styles.formSignUptext2}>Sign up!</Text>
           </TouchableOpacity>
         </View>
