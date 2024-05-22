@@ -14,11 +14,11 @@ export const HomeScreen = ({navigation,route} : Props) => {
 
   // Parte de Alex verificar si es prof o estudiante
 
-    //   const onSubmito = () => {
-    //     return navigation.navigate('ClassesScreen', {
-    //       isTeacher: true
-    //     })
-    // }
+       const onSubmito = () => {
+         return navigation.navigate('ClassesScreen', {
+           isTeacher: true
+         })
+     }
 
   const {email,password, onChange,errorMessage,login,user} = useViewModel();
 
@@ -88,17 +88,8 @@ export const HomeScreen = ({navigation,route} : Props) => {
         {/* COMIENZA BOTON */}
         <View>
           {/* MOSTRAR CON UN ALERT EL VALOR DE LOS INPUTS */}
-          <RoundedButton text='Get in' onPress={() => login()} /> 
+          <RoundedButton text='Get in' onPress={() => onSubmito()} /> 
         </View>
-
-
-          {/* MOSTRAR EN LA TERMINAL EL VALOR DE LOS INPUTS */}
-{/*         <View>
-          <RoundedButton text='Get in' onPress={() =>{
-            console.log ('Email '+ email);
-            console.log ('Password '+ password);
-          }} />
-        </View> */}
   
         {/* COMIENZA TEXTO FINAL */}
         <View style={styles.formSignUp}>

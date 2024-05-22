@@ -1,8 +1,7 @@
-import { useRef, useState } from 'react'
+import React from 'react';
 import { 
   View, ScrollView, 
-  Text, StyleSheet,
-  TouchableOpacity,
+  Text, TouchableOpacity,
   Dimensions
 } from 'react-native'
 
@@ -11,8 +10,10 @@ import Layout from '../../components/Layout'
 import { MyColors } from '../../theme/AppTheme'
 import { styles } from './Styles'
 import useViewModel from './ViewModel'
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '../../../../App'; 
 
-const screenWidth = Dimensions.get("screen").width //obtiene el ancho de la pantalla  (obten el ancho de la pantalla)
+const screenWidth = Dimensions.get("screen").width //obtiene el ancho de la pantalla
 
 //simulacion de bd envia los datos al componente ClassList
 const classes = [
@@ -47,10 +48,12 @@ interface ClassesScreenProps {
   };
 }
 
-//Vista en si
+
 export default function Classes({ route }: ClassesScreenProps) {
  const { isTeacher } = route.params;
- const {xPosition,setXPosition,scrollViewRef,ScrollTo,onEndScroll}= useViewModel ()
+ const {xPosition,setXPosition,scrollViewRef,ScrollTo,onEndScroll}= useViewModel ();
+ const navigation = useNavigation<NavigationProp<RootStackParamList>>();  // Tipar correctamente el hook useNavigation
+
   return (
 
     //Etiqueta de Layout para que se mumestre le menu en una vista(colocar el contenido de la vista dentro de layaut ojo el layaout ya trae el menu)
@@ -61,7 +64,8 @@ export default function Classes({ route }: ClassesScreenProps) {
           <Text style={styles.headerTitle}>
             Classes
           </Text>
-          <TouchableOpacity style={[styles.addButton, { display: !isTeacher ? 'none': 'flex' }]}>
+          <TouchableOpacity style={[styles.addButton, { display: !isTeacher ? 'none': 'flex' }]}
+          onPress={() => navigation.navigate('CreateClass')}>
             <Text style={styles.addButtonText}>
               +
             </Text>
