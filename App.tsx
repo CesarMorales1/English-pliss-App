@@ -39,7 +39,8 @@ const App = () => {
           headerShown: true,
           title: 'VideoClassScreen'
         }}
-        />}  */}
+        />}   */}
+
           {/* LLAMADO AL LOGIN */}
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           {/* LLAMADO AL REGISTER */}
