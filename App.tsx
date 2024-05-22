@@ -8,6 +8,7 @@ import VideoClassScreen from "./src/Presentation/views/videoClass/VideoClass";
 
 import { MenuProvider } from "react-native-popup-menu";
 import { ProfileUserScreen } from "./src/Presentation/views/profile/info/profileInfo";
+import RoleScreen from "./src/Presentation/views/roles/Roles";
 
 export type RootStackParamList = {
   //aqui definimos que tipos de datos van a recibir esas pantallas
@@ -16,6 +17,7 @@ export type RootStackParamList = {
   ClassesScreen: { isTeacher: boolean };
   ProfileInfoScreen: undefined;
   VideoClassScreen: undefined;
+  RoleScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -30,14 +32,15 @@ const App = () => {
           }}
         >
           {/* LLAMADO AL VIDEO */}
-                   {/* {<Stack.Screen
+          {/* {<Stack.Screen
           name="VideoClassScreen"
           component={VideoClassScreen}
           options={{
           headerShown: true,
           title: 'VideoClassScreen'
         }}
-        />}  */}
+        />}   */}
+
           {/* LLAMADO AL LOGIN */}
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           {/* LLAMADO AL REGISTER */}
@@ -50,6 +53,18 @@ const App = () => {
                 title: "Sign Up",
               }}
             />
+          }
+
+          {/* LLAMADO A Roles */}
+          {
+            // <Stack.Screen
+            //   name="RoleScreen"
+            //   component={RoleScreen}
+            //   options={{
+            //     headerShown: true,
+            //     title: "Sign Up",
+            //   }}
+            // />
           }
           {/* LLAMADO A CLASES */}
           <Stack.Screen name="ClassesScreen" component={ClassesScreen} />
