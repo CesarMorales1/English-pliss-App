@@ -8,17 +8,19 @@ import VideoClassScreen from "./src/Presentation/views/videoClass/VideoClass";
 import CreateClass from './src/Presentation/views/classes/createClass/createClass';
 
 import { MenuProvider } from "react-native-popup-menu";
-import { ProfileUserScreen } from "./src/Presentation/views/profile/info/profileInfo";
+import { ProfileUserScreens } from "./src/Presentation/views/profile/info/profileInfo";
 import RoleScreen from "./src/Presentation/views/roles/Roles";
+import { ProfileInfoScreenEdit } from "./src/Presentation/views/profile/editprofile/ProfileInfo";
 
 export type RootStackParamList = {
   //aqui definimos que tipos de datos van a recibir esas pantallas
   HomeScreen: undefined;
   RegisterScreen: undefined;
   ClassesScreen: { isTeacher: boolean };
-  ProfileInfoScreen: undefined;
+  ProfileInfoScreens: undefined;
   VideoClassScreen: undefined;
   RoleScreen: undefined;
+  ProfileInfoScreenEdit: undefined;
   CreateClass:undefined;
 };
 
@@ -34,15 +36,14 @@ const App = () => {
           }}
         >
           {/* LLAMADO AL VIDEO */}
-          {/* {<Stack.Screen
+                    {<Stack.Screen
           name="VideoClassScreen"
           component={VideoClassScreen}
           options={{
           headerShown: true,
           title: 'VideoClassScreen'
         }}
-        />}   */}
-
+        />}  
           {/* LLAMADO AL LOGIN */}
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           {/* LLAMADO AL REGISTER */}
@@ -53,6 +54,18 @@ const App = () => {
               options={{
                 headerShown: true,
                 title: "Sign Up",
+              }}
+            />
+          }
+
+          {/* LLAMADO A EDICIÓN PERFILES */}
+          {
+            <Stack.Screen
+              name="ProfileInfoScreenEdit"
+              component={ProfileInfoScreenEdit}
+              options={{
+                headerShown: true,
+                title: "VideoClassScreen",
               }}
             />
           }
@@ -75,8 +88,8 @@ const App = () => {
 
           {/* LLAMADO A Perfil colocar aqui TODO:lo de alexandraa*/}
           <Stack.Screen
-            name="ProfileInfoScreen"
-            component={ProfileUserScreen}
+            name="ProfileInfoScreens"
+            component={ProfileUserScreens}
           />
         </Stack.Navigator>
       </NavigationContainer>
