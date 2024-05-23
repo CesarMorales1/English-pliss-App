@@ -30,7 +30,6 @@ import { useUserLocal } from '../../hooks/useUserLocal';
                         {
                             await saveUserLocalUseCase(response.data);
                             getUserSession();
-
                         }
                 }
         }

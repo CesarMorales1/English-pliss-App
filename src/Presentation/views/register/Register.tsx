@@ -25,7 +25,8 @@ export default function RegisterScreen({ navigation, route }: Props) {
   useEffect(() => {
     console.log(JSON.stringify(user));
     if (user?.id_user && user?.session_token) {
-      navigation.replace('ClassesScreen', { isTeacher: true });
+      const isTeacher = Number(user.id_rol) === 1? false : true;
+      navigation.replace('ClassesScreen', { isTeacher: isTeacher });
     }
   }, [user]);
 

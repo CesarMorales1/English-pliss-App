@@ -6,4 +6,5 @@ export interface User
     numero:    string;
     password:  string;
     session_token?: string;
+    id_rol? : string
 }

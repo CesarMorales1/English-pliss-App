@@ -18,7 +18,7 @@ const RegisterViewModel = () => {
     password: '',
     image: '',
     confirmPassword: '',
-    id_rol: null, // Agregar id_rol al estado
+    id_rol: '', // Agregar id_rol al estado
   });
   
   const [loadingElement, setloadingElement] = useState(false);
