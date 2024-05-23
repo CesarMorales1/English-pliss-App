@@ -7,15 +7,19 @@ import ClassesScreen from "./src/Presentation/views/classes/Classes";
 import VideoClassScreen from "./src/Presentation/views/videoClass/VideoClass";
 
 import { MenuProvider } from "react-native-popup-menu";
-import { ProfileUserScreen } from "./src/Presentation/views/profile/info/profileInfo";
+import { ProfileUserScreens } from "./src/Presentation/views/profile/info/profileInfo";
+import RoleScreen from "./src/Presentation/views/roles/Roles";
+import { ProfileInfoScreenEdit } from "./src/Presentation/views/profile/editprofile/ProfileInfo";
 
 export type RootStackParamList = {
   //aqui definimos que tipos de datos van a recibir esas pantallas
   HomeScreen: undefined;
   RegisterScreen: undefined;
   ClassesScreen: { isTeacher: boolean };
-  ProfileInfoScreen: undefined;
+  ProfileInfoScreens: undefined;
   VideoClassScreen: undefined;
+  RoleScreen: undefined;
+  ProfileInfoScreenEdit: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -51,13 +55,37 @@ const App = () => {
               }}
             />
           }
+
+          {/* LLAMADO A EDICIÓN PERFILES */}
+          {
+            <Stack.Screen
+              name="ProfileInfoScreenEdit"
+              component={ProfileInfoScreenEdit}
+              options={{
+                headerShown: true,
+                title: "VideoClassScreen",
+              }}
+            />
+          }
+
+          {/* LLAMADO A Roles */}
+          {
+            // <Stack.Screen
+            //   name="RoleScreen"
+            //   component={RoleScreen}
+            //   options={{
+            //     headerShown: true,
+            //     title: "Sign Up",
+            //   }}
+            // />
+          }
           {/* LLAMADO A CLASES */}
           <Stack.Screen name="ClassesScreen" component={ClassesScreen} />
 
           {/* LLAMADO A Perfil colocar aqui TODO:lo de alexandraa*/}
           <Stack.Screen
-            name="ProfileInfoScreen"
-            component={ProfileUserScreen}
+            name="ProfileInfoScreens"
+            component={ProfileUserScreens}
           />
         </Stack.Navigator>
       </NavigationContainer>

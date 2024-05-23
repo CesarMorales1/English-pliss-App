@@ -37,7 +37,7 @@ export default function Menu(
   }
 
   const onProfilePressed = () => {
-    navigation.navigate("ProfileInfoScreen")
+    navigation.navigate("ProfileInfoScreenEdit")
   }
 
   return (
