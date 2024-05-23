@@ -34,8 +34,9 @@ const RegisterStyles = StyleSheet.create({
         marginTop: 10,
     },
     formTextTitleInput:{
-        marginTop: 15,//MARGEN ENTRE CADA INPUT CON TITULO
+        marginTop: 18,//MARGEN ENTRE CADA INPUT CON TITULO
         color: MyColors.primary,
+        fontSize: 15,
     },
     formInput: {
         flexDirection:'row'

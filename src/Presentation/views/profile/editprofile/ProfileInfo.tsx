@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { RoundedButton } from "../../../components/RoundedButton";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { RootStackParamList } from "../../../../../App";
+import Layout from '../../../components/Layout'
 
 export const ProfileInfoScreenEdit = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -19,6 +20,7 @@ export const ProfileInfoScreenEdit = () => {
   }, [user]); */
 
   return (
+    <Layout selected='third'>
     <View style={styles.container}>
       <Image
         source={require("../../../../../assets/background-login.png")}
@@ -94,6 +96,7 @@ export const ProfileInfoScreenEdit = () => {
         <RoundedButton onPress={() => {}} text="ACTUALIZAR INFORMACION" />
       </View>
     </View>
+    </Layout>
   );
 };
 

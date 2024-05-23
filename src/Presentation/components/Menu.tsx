@@ -29,7 +29,7 @@ export default function Menu(
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const onClassesPressed = () => {
-    navigation.navigate("ClassesScreen", { isTeacher: false })
+    navigation.navigate("ClassesScreen", { isTeacher: true })
   }
   
   const onVideoPressed = () => {

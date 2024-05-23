@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const ProfileInfoStyles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0.9,
     backgroundColor: "black",
   },
   imageBackground: {
