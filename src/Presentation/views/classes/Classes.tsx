@@ -54,7 +54,7 @@ export default function Classes({ route }: ClassesScreenProps) {
   return (
 
     //Etiqueta de Layout para que se mumestre le menu en una vista(colocar el contenido de la vista dentro de layaut ojo el layaout ya trae el menu)
-    <Layout>
+    <Layout selected='first'>
       <View style={styles.main}>
         {/* TITULO */}
         <View style={styles.header}>

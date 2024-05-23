@@ -1,23 +1,42 @@
-import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Keyboard } from 'react-native';
+import Menu from './Menu';
 
-import Menu from './Menu'
+export default function Layout({ children, selected }: { children: React.ReactNode, selected: "first" | "second" | "third" }) {
 
-export default function Layout({ children }: React.PropsWithChildren) {
+  const [isKeyboardVisible, setisKeyboardVisible] = useState(false);
 
-  const [selected, setSelected] = React.useState<'first' | 'second' | 'third'>("first")
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setisKeyboardVisible(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setisKeyboardVisible(false);
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
 
   return (
     <View style={styles.container}>
-      { children }
-      <Menu selected={selected} setSelected={setSelected} />
+      {children}
+      {!isKeyboardVisible && <Menu selected={selected} />}
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20
-  }
-})
+    marginTop: 20,
+  },
+});
