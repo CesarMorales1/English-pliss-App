@@ -8,7 +8,20 @@ import { useUserLocal } from "../../hooks/useUserLocal";
 import { Role } from "../../../Domain/entities/Role";
 import { RoleRepositoryImplement } from "../../../Data/repositories/RoleRepositoryImplement";
 import { GetRolesUseCase } from "../../../Domain/useCase/auth/GetRolesUseCase";
+import { Teacher } from "../../../Domain/entities/Teacher";
+import { Course } from "../../../Domain/entities/Course";
 
+
+const staticTeachers: Teacher[] = [
+  { id_teacher: 1, name_teacher: 'Profesor A' },
+  { id_teacher: 2, name_teacher: 'Profesor B' },
+];
+
+const staticCourses: Course[] = [
+  { id_course: 1, name_course: 'Curso 1' },
+  { id_course: 2, name_course: 'Curso 2' },
+  { id_course: 3, name_course: 'Curso 3' },
+];
 const RegisterViewModel = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [values, setValues] = useState({
@@ -19,12 +32,16 @@ const RegisterViewModel = () => {
     image: '',
     confirmPassword: '',
     id_rol: null, // Agregar id_rol al estado
+    id_teacher: '',
+    id_courses: '',
   });
   
   const [loadingElement, setloadingElement] = useState(false);
   const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
   const { user, getUserSession } = useUserLocal();
   const [roles, setRoles] = useState<Role[]>([]);
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [courses, setCourses] = useState<Course[]>([]);
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -39,6 +56,16 @@ const RegisterViewModel = () => {
     };
     fetchRoles();
   }, []);
+
+  useEffect(() => {
+    if (values.id_rol === 1) { // Si el rol es Profesor
+      setTeachers(staticTeachers);
+      setCourses(staticCourses);
+    } else {
+      setTeachers([]);
+      setCourses([]);
+    }
+  }, [values.id_rol]);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -128,6 +155,8 @@ const RegisterViewModel = () => {
     pickImage,
     takePhoto,
     user,
+    teachers,
+    courses,
     loadingElement
   };
 };
