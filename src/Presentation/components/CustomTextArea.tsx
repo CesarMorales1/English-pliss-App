@@ -1,9 +1,8 @@
 import React from 'react'
-import { View, Image, TextInput, StyleSheet, KeyboardTypeIOS, KeyboardType } from 'react-native'
+import { View, TextInput, StyleSheet, KeyboardTypeIOS, KeyboardType } from 'react-native'
 import { MyColors } from '../theme/AppTheme'
 
 interface Props {
-  image:any,
   placeholder:string,
   value:string,
   keyboardType:KeyboardType,
@@ -13,9 +12,8 @@ interface Props {
 
 }
 
-export const CustomTextInput = ({
+export const CustomTextArea = ({
 
-  image,
   placeholder,
   value,
   keyboardType,
@@ -26,17 +24,16 @@ export const CustomTextInput = ({
 }:Props) => {
   return (
       <View style={styles.formInput}>
-        <Image
-          source={image}
-          style={styles.formIcon}
-        />
+
         <TextInput
-          style={styles.formTextInput}
+          style={styles.textArea}
           placeholder={placeholder}
           keyboardType={keyboardType}
           value={value}
           onChangeText={ text => onChangeText(property, text) }
           secureTextEntry={secureTextEntry}
+          multiline={true}
+          numberOfLines={4}
         />
       </View>
   )
@@ -51,18 +48,14 @@ const styles = StyleSheet.create({
       flexDirection:'row',
       marginTop: 3,
   },
-  formTextInput: {
-      flex : 1,
-      borderWidth: 1,
-      borderColor: MyColors.background,
-      borderRadius: 10,
-      padding:8,
-      marginLeft: 15,
-      fontSize: 15,
-  },
-  formIcon:{
-    width :25,
-    height :25,
-    marginTop: 10,
+  textArea: {
+    height: 150,
+    flex : 1,
+    textAlignVertical: 'top',
+    padding: 10,
+    borderColor:MyColors.background,
+    borderWidth: 1,
+    borderRadius: 10,
+    fontSize: 16,
   },
 })

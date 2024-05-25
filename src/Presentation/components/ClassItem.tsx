@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   
   listDetailsTitle: {
-    fontSize: 20
+    fontSize: 18,
   },
   
   listDuration: {

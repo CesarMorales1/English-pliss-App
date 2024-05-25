@@ -1,9 +1,8 @@
 import React from 'react'
-import { View, Image, TextInput, StyleSheet, KeyboardTypeIOS, KeyboardType } from 'react-native'
+import { View, TextInput, StyleSheet, KeyboardTypeIOS, KeyboardType } from 'react-native'
 import { MyColors } from '../theme/AppTheme'
 
 interface Props {
-  image:any,
   placeholder:string,
   value:string,
   keyboardType:KeyboardType,
@@ -13,9 +12,7 @@ interface Props {
 
 }
 
-export const CustomTextInput = ({
-
-  image,
+export const CustomTextInputSimple = ({
   placeholder,
   value,
   keyboardType,
@@ -26,10 +23,7 @@ export const CustomTextInput = ({
 }:Props) => {
   return (
       <View style={styles.formInput}>
-        <Image
-          source={image}
-          style={styles.formIcon}
-        />
+
         <TextInput
           style={styles.formTextInput}
           placeholder={placeholder}
@@ -57,12 +51,6 @@ const styles = StyleSheet.create({
       borderColor: MyColors.background,
       borderRadius: 10,
       padding:8,
-      marginLeft: 15,
-      fontSize: 15,
-  },
-  formIcon:{
-    width :25,
-    height :25,
-    marginTop: 10,
+      marginLeft: 0,
   },
 })

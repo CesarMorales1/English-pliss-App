@@ -18,12 +18,13 @@ export const styles = StyleSheet.create({
     
     headerTitle: {
       fontWeight:'700',
-      fontSize: 40
+      fontSize: 40,
+      marginTop:20,
     },
   
     addButton: {
       marginHorizontal: 30,
-      marginTop: 5,
+      marginTop: 20,
       width: 35,
       backgroundColor: MyColors.primary,
       padding: 5,
@@ -31,7 +32,7 @@ export const styles = StyleSheet.create({
     },
   
     addButtonText: {
-      color: "#fff",
+      color: MyColors.secondary,
       fontSize: 20,
       fontWeight: "bold",
       textAlign: "center"

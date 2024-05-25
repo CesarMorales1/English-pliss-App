@@ -93,19 +93,11 @@ export const HomeScreen = ({ navigation, route }: Props) => {
           <RoundedButton text="Get in" onPress={() => login()} />
         </View>
 
-        {/* MOSTRAR EN LA TERMINAL EL VALOR DE LOS INPUTS */}
-        {/*         <View>
-          <RoundedButton text='Get in' onPress={() =>{
-            console.log ('Email '+ email);
-            console.log ('Password '+ password);
-          }} />
-        </View> */}
-
         {/* COMIENZA TEXTO FINAL */}
         <View style={styles.formSignUp}>
           <Text>Already have an account?</Text>
           <TouchableOpacity
-            onPress={() => navigation.navigate("ProfileInfoScreenEdit")}
+            onPress={() => navigation.navigate("RegisterScreen")}
           >
             <Text style={styles.formSignUptext2}>Sign up!</Text>
           </TouchableOpacity>

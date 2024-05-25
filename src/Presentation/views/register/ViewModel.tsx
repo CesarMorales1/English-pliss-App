@@ -8,23 +8,37 @@ import { useUserLocal } from "../../hooks/useUserLocal";
 import { Role } from "../../../Domain/entities/Role";
 import { RoleRepositoryImplement } from "../../../Data/repositories/RoleRepositoryImplement";
 import { GetRolesUseCase } from "../../../Domain/useCase/auth/GetRolesUseCase";
+import { Teacher } from "../../../Domain/entities/Teacher";
+import { Course } from "../../../Domain/entities/Course";
 
+const staticTeachers: Teacher[] = [
+  { id_teacher: 1, name_teacher: "Profesor A" },
+  { id_teacher: 2, name_teacher: "Profesor B" },
+];
+
+const staticCourses: Course[] = [
+  { id_course: 1, name_course: "Curso 1" },
+  { id_course: 2, name_course: "Curso 2" },
+  { id_course: 3, name_course: "Curso 3" },
+];
 const RegisterViewModel = () => {
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const [values, setValues] = useState({
-    full_name: '',
-    email: '',
-    numero: '',
-    password: '',
-    image: '',
-    confirmPassword: '',
+    full_name: "",
+    email: "",
+    numero: "",
+    password: "",
+    image: "",
+    confirmPassword: "",
     id_rol: null, // Agregar id_rol al estado
   });
-  
+
   const [loadingElement, setloadingElement] = useState(false);
   const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
   const { user, getUserSession } = useUserLocal();
   const [roles, setRoles] = useState<Role[]>([]);
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [courses, setCourses] = useState<Course[]>([]);
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -40,16 +54,27 @@ const RegisterViewModel = () => {
     fetchRoles();
   }, []);
 
+  useEffect(() => {
+    if (values.id_rol === 1) {
+      // Si el rol es Profesor
+      setTeachers(staticTeachers);
+      setCourses(staticCourses);
+    } else {
+      setTeachers([]);
+      setCourses([]);
+    }
+  }, [values.id_rol]);
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       quality: 1,
-      base64: true
+      base64: true,
     });
 
-    if (!result.canceled) {       
-      onChange('image', result.assets[0].uri);
+    if (!result.canceled) {
+      onChange("image", result.assets[0].uri);
       setFile(result.assets[0]);
     }
   };
@@ -59,11 +84,11 @@ const RegisterViewModel = () => {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       quality: 1,
-      base64: true
+      base64: true,
     });
 
     if (!result.canceled) {
-      onChange('image', result.assets[0].uri);
+      onChange("image", result.assets[0].uri);
       setFile(result.assets[0]);
     }
   };
@@ -78,7 +103,7 @@ const RegisterViewModel = () => {
       const apiResponse = await RegisterWithImageUseCase(values, file!);
       setloadingElement(false);
       if (apiResponse.success) {
-        console.log('Aqui la respuesta de la api', apiResponse.data);
+        console.log("Aqui la respuesta de la api", apiResponse.data);
         await saveUserLocalUseCase(apiResponse.data);
         getUserSession();
       } else {
@@ -93,7 +118,7 @@ const RegisterViewModel = () => {
       return false;
     }
     if (isNaN(Number(values.numero)) || !values.numero) {
-      setErrorMessage('Please enter a valid Number');
+      setErrorMessage("Please enter a valid Number");
       return false;
     }
     if (!values.password || !values.confirmPassword) {
@@ -101,7 +126,7 @@ const RegisterViewModel = () => {
       return false;
     }
     if (values.password !== values.confirmPassword) {
-      setErrorMessage('The passwords are not equal');
+      setErrorMessage("The passwords are not equal");
       return false;
     }
     if (!values.email) {
@@ -128,7 +153,9 @@ const RegisterViewModel = () => {
     pickImage,
     takePhoto,
     user,
-    loadingElement
+    teachers,
+    courses,
+    loadingElement,
   };
 };
 
