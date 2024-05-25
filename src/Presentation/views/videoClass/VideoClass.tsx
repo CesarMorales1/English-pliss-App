@@ -123,6 +123,6 @@ export default function VideoClassScreen() {
       </View>
     </View>
 
-    </Layout> 
-  );
+    </Layout> 
+  );
 }
