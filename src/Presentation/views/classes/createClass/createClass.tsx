@@ -13,7 +13,8 @@ import SwitchComponent from '../../../components/CustomSwitch';
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from '../../../../../App';
 
-interface Props extends StackScreenProps<RootStackParamList, "HomeScreen"> {}
+interface Props extends StackScreenProps<RootStackParamList, "CreateClass"> {}
+
 
 const CreateClass = ({ navigation, route }: Props) => {
   const [videoUri, setVideoUri] = useState<string | null>(null);
@@ -47,7 +48,7 @@ const CreateClass = ({ navigation, route }: Props) => {
   };
 
   return (
-    <Layout>
+    <Layout selected='first'>
       <View style={styles.container}>
         <View style={styles.button}>
           {videoUri ? (

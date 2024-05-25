@@ -43,16 +43,7 @@ const App = () => {
           screenOptions={{
             headerShown: false,
           }}
-        >
-          {/* LLAMADO AL VIDEO */}
-                    {<Stack.Screen
-          name="VideoClassScreen"
-          component={VideoClassScreen}
-          options={{
-          headerShown: true,
-          title: 'VideoClassScreen'
-        }}
-        />}  
+        > 
           {/* LLAMADO AL LOGIN */}
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           {/* LLAMADO AL REGISTER */}
@@ -66,7 +57,15 @@ const App = () => {
               }}
             />
           }
-
+          {/* LLAMADO AL VIDEO */}
+          {<Stack.Screen
+          name="VideoClassScreen"
+          component={VideoClassScreen}
+          options={{
+          headerShown: true,
+          title: 'VideoClassScreen'
+        }}
+        />} 
           {/* LLAMADO A EDICIÓN PERFILES */}
           {
             <Stack.Screen
@@ -93,7 +92,7 @@ const App = () => {
           {/* LLAMADO A CLASES */}
           <Stack.Screen name="ClassesScreen" component={ClassesScreen} />
           {/* LLAMADO A Crear Clase */}
-          <Stack.Screen name="CreateClass" component={CreateClass} />
+          <Stack.Screen name="CreateClass" component={CreateClass}/>
 
           {/* LLAMADO A Perfil colocar aqui TODO:lo de alexandraa*/}
           <Stack.Screen
@@ -114,4 +113,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default App;
