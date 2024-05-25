@@ -6,9 +6,7 @@ const ClassStyles = StyleSheet.create({
     listContainer: {
         width: "100%",
         marginTop: 15,
-        marginHorizontal: 10
     },
-
     menuStyles: {
         width: 100,
     },
@@ -16,7 +14,9 @@ const ClassStyles = StyleSheet.create({
     listItem: {
         flexDirection: "row",
         alignItems: "center",
-        marginVertical: 10
+        marginVertical: 10,
+        marginHorizontal:10,
+        
     },
 
     listElipse: {
