@@ -28,8 +28,22 @@ export default function Menu(
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
+  //mUESTRA LA LISTA DE CLASES SI ES PROFESOR O ES ESTUDIANTE 
   const onClassesPressed = () => {
     navigation.navigate("ClassesScreen", { isTeacher: true })
+
+    //TODO: AQUI QUITAR PARA DESPLEGAR LA VISTA DE EDIT PERMISOS
+    // Forma de ir a la vista de editar rol
+
+    // navigation.navigate("EditRole", {
+    //   userInfo: {
+    //     name: "Daniel",
+    //     email: "daniel2004@gmail.com",
+    //     phone: "+58412-1234567",
+    //     rol: "teacher"
+    //   }
+    // })
+    
   }
   
   const onVideoPressed = () => {

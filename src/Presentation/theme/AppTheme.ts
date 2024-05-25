@@ -12,5 +12,7 @@ export const MyColors = {
     secondaryClasses: '#9663fa', //rosado para las clases vistas
     tertiaryClasses: '#B8B8D2', //gris 
 
-
+    roleBackground: "#17BC2729",
+    role: "#17BC27",
+    button: "#3D5CFF"
 }
