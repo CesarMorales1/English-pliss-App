@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Switch, StyleSheet } from 'react-native';
 import { MyColors } from '../theme/AppTheme';
 
-const SwitchComponent = () => {
-    const [isEnabled, setIsEnabled] = useState(false);
+interface Props {
+    value: boolean;
+    property: string;
+    onChangeText: (property: string, value: any) => void;
+}
 
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+const SwitchComponent: React.FC<Props> = ({ value, property, onChangeText }) => {
+    const [isEnabled, setIsEnabled] = useState(value);
+
+    useEffect(() => {
+        setIsEnabled(value);
+    }, [value]);
+
+    const toggleSwitch = () => {
+        setIsEnabled(previousState => !previousState);
+        onChangeText(property, !isEnabled);
+    };
 
     return (
         <View style={styles.container}>
@@ -26,14 +39,11 @@ const SwitchComponent = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection:'row',
+        flexDirection: 'row',
         alignItems: 'center',
-        //justifyContent: 'center',
-        //backgroundColor: '#f5fcff',
-        marginBottom:50,
+        marginBottom: 0,
     },
-
-    status: {        
+    status: {
         margin: 10,
         marginLeft: 0,
         fontSize: 14,
