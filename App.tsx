@@ -6,6 +6,7 @@ import RegisterScreen from "./src/Presentation/views/register/Register";
 import ClassesScreen from "./src/Presentation/views/classes/Classes";
 import VideoClassScreen from "./src/Presentation/views/videoClass/VideoClass";
 import CreateClass from "./src/Presentation/views/classes/createClass/createClass";
+import EditRole from "./src/Presentation/views/permissions/editRole/EditRole";
 
 import { MenuProvider } from "react-native-popup-menu";
 import { ProfileUserScreens } from "./src/Presentation/views/profile/info/profileInfo";
@@ -22,6 +23,14 @@ export type RootStackParamList = {
   RoleScreen: undefined;
   ProfileInfoScreenEdit: undefined;
   CreateClass: undefined;
+  EditRole: {
+    userInfo: {
+      name: string;
+      email: string;
+      phone: string;
+      rol: "admin" | "student" | "teacher";
+    };
+  };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -36,14 +45,6 @@ const App = () => {
           }}
         >
           {/* LLAMADO AL VIDEO */}
-          {/* {<Stack.Screen
-          name="VideoClassScreen"
-          component={VideoClassScreen}
-          options={{
-          headerShown: true,
-          title: 'VideoClassScreen'
-        }}
-        />}   */}
 
           {/* LLAMADO AL LOGIN */}
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
@@ -55,6 +56,16 @@ const App = () => {
               options={{
                 headerShown: true,
                 title: "Sign Up",
+              }}
+            />
+          }
+          {
+            <Stack.Screen
+              name="VideoClassScreen"
+              component={VideoClassScreen}
+              options={{
+                headerShown: true,
+                title: "VideoClassScreen",
               }}
             />
           }
@@ -91,6 +102,14 @@ const App = () => {
           <Stack.Screen
             name="ProfileInfoScreens"
             component={ProfileUserScreens}
+          />
+          {/* LLAMADO AL EDITAR ROL */}
+          <Stack.Screen
+            name="EditRole"
+            component={EditRole}
+            options={{
+              headerShown: true,
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>

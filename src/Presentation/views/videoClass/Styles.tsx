@@ -5,9 +5,16 @@ const VideoClassStyles = StyleSheet.create({
     container: {
         flex: 0.9,
     },
+// se creo para acomodar el contenedor 
+    classesContainer: {
+        width: "110%",
+      
+    },
     videoContainer: {
         flex: 3, // 30% de la pantalla
         backgroundColor: MyColors.background,
+
+        
     },
     listContainer: {
         flex: 7, // 70% de la pantalla

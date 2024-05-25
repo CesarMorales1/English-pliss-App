@@ -56,7 +56,8 @@ export default function VideoClassScreen() {
     if (selectedView === 'classes') {
       return (
       <View>
-        <ScrollView>
+      
+         <ScrollView style={styles.classesContainer}>
           {classes.map((classItem, index) => (
             <ClassScreen key={index} classItem={classItem} isTeacher={true} />
           ))}
@@ -77,7 +78,7 @@ export default function VideoClassScreen() {
 
   return (
 
-    <Layout>   
+    <Layout selected='second'>   
     <View style={styles.container}>
       <View style={styles.videoContainer}>
         <View style={styles.videoWrapper}>
