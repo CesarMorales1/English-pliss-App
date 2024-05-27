@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { 
   View, ScrollView, 
   Text, TouchableOpacity,
@@ -12,12 +12,13 @@ import { styles } from './Styles'
 import useViewModel from './ViewModel'
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../App'; 
+import { getUserLocalUseCase } from '../../../Domain/useCase/userLocal/getUserLocal';
 
 const screenWidth = Dimensions.get("screen").width //obtiene el ancho de la pantalla
-
 //simulacion de bd envia los datos al componente ClassList
+
 const classes = [
-  { id: "01", title: "Welcome to the course", viewed: true, duration: "06:10" },
+  { id: "01", title: "Welcomi to the course", viewed: true, duration: "06:10" },
   { id: "02", title: "Verb To-Be English Plis", viewed: true, duration: "06:10" },
   { id: "03", title: "Sentences", viewed: false, duration: "06:10" },
   { id: "04", title: "Simple present", viewed: false, duration: "06:10" },
@@ -57,7 +58,7 @@ export default function Classes({ route }: ClassesScreenProps) {
   return (
 
     //Etiqueta de Layout para que se mumestre le menu en una vista(colocar el contenido de la vista dentro de layaut ojo el layaout ya trae el menu)
-    <Layout>
+    <Layout selected='first'>
       <View style={styles.main}>
         {/* TITULO */}
         <View style={styles.header}>

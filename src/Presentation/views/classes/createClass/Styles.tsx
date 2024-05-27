@@ -16,14 +16,14 @@ const CreateClassStyles = StyleSheet.create({
         top:'10%',
     },
     video: {
-        width: 300,
-        height: 300,
-        marginTop: 20,
+        width: 140,
+        height: 140,
+        marginTop: 5,
       },
       /* AQUI COMIENZA STYLES FORMULARIO---------------------------------------- */
       form: {
         width:'100%',
-        height: '75%',
+        height: '72%',
         backgroundColor: MyColors.secondary,
         position:'absolute',//se coloca encima del fondo
         bottom:0,//cero es igual a la posicion mas abajo que hay
@@ -37,11 +37,27 @@ const CreateClassStyles = StyleSheet.create({
         fontSize:28,
         //paddingBottom: 10,
     },
+    logoImage:{
+        width:100,
+        height: 100,
+        justifyContent:'center',
+    },
+    logoText: {
+        color: MyColors.primary,
+        textAlign: 'center',
+        justifyContent:'center',
+        marginTop: 3,
+        fontSize:18,
+        fontWeight: 'bold',
+    },
     formTextTitleInput:{
         marginTop: 18,//MARGEN ENTRE CADA INPUT CON TITULO
         color: MyColors.primary,
         fontSize: 15,
     },
+    spice:{
+        margin: 20,
+    }
 
 });
 

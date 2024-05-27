@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Keyboard } from 'react-native';
 import Menu from './Menu';
 
-export default function Layout({ children }: React.PropsWithChildren) {
+
+export default function Layout({ children, selected }: { children: React.ReactNode, selected: "first" | "second" | "third" }) {
+
   const [isKeyboardVisible, setisKeyboardVisible] = useState(false);
 
   useEffect(() => {
@@ -25,22 +27,18 @@ export default function Layout({ children }: React.PropsWithChildren) {
     };
   }, []);
 
-  const [selected, setSelected] = useState<'first' | 'second' | 'third'>('first');
-
-  useEffect(() => {
-  }, [isKeyboardVisible]);
-
   return (
     <View style={styles.container}>
       {children}
-      {!isKeyboardVisible && <Menu selected={selected} setSelected={setSelected} />}
+      {!isKeyboardVisible && <Menu selected={selected} />}
     </View>
   );
+
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
-  },
+    marginTop: 20,
+  },
 });

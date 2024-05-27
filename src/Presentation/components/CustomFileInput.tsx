@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Text, Image, KeyboardType, ImageSourcePropType } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import { MyColors } from '../theme/AppTheme';
 
-export const FileInput = () => {
-  const [fileName, setFileName] = useState('');
-  const [fileUri, setFileUri] = useState(''); // Estado para guardar el URI del archivo
+interface Props {
+  image: ImageSourcePropType;
+  placeholder: string;
+  value: string;
+  keyboardType: KeyboardType;
+  secureTextEntry?: boolean;
+  property: string;
+  onChangeText: (property: string, value: any) => void;
+}
+
+const FileInput: React.FC<Props> = ({ image, placeholder, value, keyboardType, secureTextEntry = false, property, onChangeText }) => {
+  const [class_name, setFileName] = useState('');
+  const [fileUri, setFileUri] = useState<string | null>(null); // Estado para guardar el URI del archivo
 
   const handleFilePicker = async () => {
     try {
@@ -17,6 +27,7 @@ export const FileInput = () => {
         const { name, uri } = result.assets[0]; // Accede a name y uri del resultado
         setFileName(name); // Almacena el nombre del archivo
         setFileUri(uri); // Almacena el URI del archivo
+        onChangeText(property, uri); // Llama a onChangeText para actualizar el estado en el componente padre
       } else {
         console.error('Document picking was canceled');
       }
@@ -29,20 +40,22 @@ export const FileInput = () => {
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Selecciona un archivo"
-        value={fileName}
+        placeholder={placeholder}
+        value={class_name || value} // Muestra el nombre del archivo seleccionado o el valor inicial
+        keyboardType={keyboardType}
+        secureTextEntry={secureTextEntry}
         editable={false}
       />
-      <TouchableOpacity  onPress={handleFilePicker}>
+
+      {fileUri ? (
+        <Text style={styles.fileUri}></Text>
+      ) : null}
+      <TouchableOpacity onPress={handleFilePicker}>
         <Image
-          source={require('../../../assets/Add_File.png')}
+          source={image}
           style={styles.iconContainer}
         />
       </TouchableOpacity>
-      {fileUri ? (
-        <Text style={styles.fileUri}></Text> // Muestra el URI del archivo seleccionado
-      ) : null}
-      
     </View>
   );
 };
@@ -63,14 +76,14 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     marginRight: 15,
-    width:35,
-    height:35,
+    width: 35,
+    height: 35,
   },
   fileUri: {
     marginTop: 10,
-    color: 'gray',
+    color: MyColors.primary,
     fontSize: 12,
-    paddingRight:10,
+    paddingRight: 10,
   },
 });
 

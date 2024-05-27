@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
       marginTop: 3,
   },
   textArea: {
-    height: 150,
+    height: 100,
     flex : 1,
     textAlignVertical: 'top',
     padding: 10,

@@ -19,4 +19,4 @@ const ApiInglesForImage = axios.create(
         }
     })
 
-export {ApiIngles,ApiInglesForImage};
+export { ApiIngles, ApiInglesForImage };
