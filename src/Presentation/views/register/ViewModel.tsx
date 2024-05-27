@@ -8,6 +8,10 @@ import { useUserLocal } from "../../hooks/useUserLocal";
 import { Role } from "../../../Domain/entities/Role";
 import { RoleRepositoryImplement } from "../../../Data/repositories/RoleRepositoryImplement";
 import { GetRolesUseCase } from "../../../Domain/useCase/auth/GetRolesUseCase";
+import { GetAllProfessorsAuthUseCase } from "../../../Domain/useCase/professor/GetAllProfesors";
+import { Teacher } from "../../../Domain/entities/Teacher";
+import { Course } from "../../../Domain/entities/Course";
+import { ResponseApi } from "../../../Data/sources/remote/api/models/responseApi";
 
 const RegisterViewModel = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -20,11 +24,14 @@ const RegisterViewModel = () => {
     confirmPassword: '',
     id_rol: '', // Agregar id_rol al estado
   });
-  
+
   const [loadingElement, setloadingElement] = useState(false);
   const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
   const { user, getUserSession } = useUserLocal();
   const [roles, setRoles] = useState<Role[]>([]);
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [actualTeacher, setActualTeacher] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -40,6 +47,48 @@ const RegisterViewModel = () => {
     fetchRoles();
   }, []);
 
+  const getCourseInfo = (coursesOfTheProfessor: any[]): any => {
+    const courseInfo = [];
+    for (let course of coursesOfTheProfessor) {
+      const actCourse = {
+        id_course: course.id_course,
+        id_teacher: course.id_teacher,
+        id_name_course: course.course.name_course,
+      };
+      courseInfo.push(actCourse);
+    }
+    return courseInfo;
+  }
+
+  const getAllProfessors = async (): Promise<void> => {
+    try {
+      const response = await GetAllProfessorsAuthUseCase();
+      if (response.success && Array.isArray(response.data)) {
+        const teachers = response.data.map((teacher: Teacher): Teacher => ({
+          id_teacher: teacher.id_teacher,
+          id_user: teacher.id_user,
+          full_name: teacher.full_name,
+          courses: getCourseInfo(teacher.courses)
+        }));
+        console.log(teachers);
+        setTeachers(teachers);
+      } else {
+        console.error('Error: La respuesta de la API no es válida');
+      }
+    } catch (error) {
+      console.error('Error al obtener los profesores:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (Number(values.id_rol) === 1) {
+      getAllProfessors();
+    } else {
+      setTeachers([]);
+      setCourses([]);
+    }
+  }, [values.id_rol]);
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -48,7 +97,7 @@ const RegisterViewModel = () => {
       base64: true
     });
 
-    if (!result.canceled) {       
+    if (!result.canceled) {
       onChange('image', result.assets[0].uri);
       setFile(result.assets[0]);
     }
@@ -128,7 +177,12 @@ const RegisterViewModel = () => {
     pickImage,
     takePhoto,
     user,
-    loadingElement
+    teachers,
+    setCourses,
+    loadingElement,
+    courses,
+    actualTeacher,
+    setActualTeacher
   };
 };
 

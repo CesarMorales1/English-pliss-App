@@ -39,8 +39,8 @@ export const HomeScreen = ({ navigation, route }: Props) => {
     if (user?.id_user && user?.session_token) {
       //TODO: Aqui colocar el nombre de la vista
       const isTeacher = Number(user.id_rol) === 1? false : true;
-      // navigation.replace("ClassesScreen",{isTeacher: isTeacher});
-      navigation.replace('ProfileInfoScreen');
+      navigation.replace("ClassesScreen",{isTeacher: isTeacher});
+      // navigation.replace('ProfileInfoScreen');
     }
   }, [user]);
 
@@ -94,15 +94,7 @@ export const HomeScreen = ({ navigation, route }: Props) => {
           {/* MOSTRAR CON UN ALERT EL VALOR DE LOS INPUTS */}
           <RoundedButton text="Get in" onPress={() => login()} />
         </View>
-
-        {/* MOSTRAR EN LA TERMINAL EL VALOR DE LOS INPUTS */}
-        {/*         <View>
-          <RoundedButton text='Get in' onPress={() =>{
-            console.log ('Email '+ email);
-            console.log ('Password '+ password);
-          }} />
-        </View> */}
-
+  
         {/* COMIENZA TEXTO FINAL */}
         <View style={styles.formSignUp}>
           <Text>Already have an account?</Text>

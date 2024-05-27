@@ -5,6 +5,7 @@ import { HomeScreen } from "./src/Presentation/views/home/home";
 import RegisterScreen from "./src/Presentation/views/register/Register";
 import ClassesScreen from "./src/Presentation/views/classes/Classes";
 import VideoClassScreen from "./src/Presentation/views/videoClass/VideoClass";
+import CreateClass from './src/Presentation/views/classes/createClass/createClass';
 
 import { MenuProvider } from "react-native-popup-menu";
 import { ProfileUserScreen } from "./src/Presentation/views/profile/info/profileInfo";
@@ -18,6 +19,7 @@ export type RootStackParamList = {
   ProfileInfoScreen: undefined;
   VideoClassScreen: undefined;
   RoleScreen: undefined;
+  CreateClass:undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -68,6 +70,8 @@ const App = () => {
           }
           {/* LLAMADO A CLASES */}
           <Stack.Screen name="ClassesScreen" component={ClassesScreen} />
+          {/* LLAMADO A Crear Clase */}
+          <Stack.Screen name="CreateClass" component={CreateClass} />
 
           {/* LLAMADO A Perfil colocar aqui TODO:lo de alexandraa*/}
           <Stack.Screen
