@@ -15,7 +15,7 @@ import Layout from '../../components/Layout';
 export default function VideoClassScreen() {
 
   const classes = [
-    { id: "01", title: "Welcome to the course", viewed: true, duration: "06:10" },
+    { id: "01", title: "Welcoma to the course", viewed: true, duration: "06:10" },
     { id: "02", title: "Verb To-Be English Plis", viewed: true, duration: "06:10" },
     { id: "03", title: "Sentences", viewed: true, duration: "06:10" },
     { id: "04", title: "Simple present", viewed: false, duration: "06:10" },
