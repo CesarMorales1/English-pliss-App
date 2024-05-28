@@ -12,8 +12,7 @@ import { styles } from './Styles'
 import useViewModel from './ViewModel'
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../App'; 
-import { getUserLocalUseCase } from '../../../Domain/useCase/userLocal/getUserLocal';
-
+import {useUserLocal} from "../../hooks/useUserLocal"
 const screenWidth = Dimensions.get("screen").width //obtiene el ancho de la pantalla
 //simulacion de bd envia los datos al componente ClassList
 
@@ -51,6 +50,8 @@ interface ClassesScreenProps {
 
 
 export default function Classes({ route }: ClassesScreenProps) {
+//  const {getUserSession,user} = useUserLocal();
+//  console.log(user);
  const { isTeacher } = route.params;
  const {xPosition,setXPosition,scrollViewRef,ScrollTo,onEndScroll}= useViewModel ();
  const navigation = useNavigation<NavigationProp<RootStackParamList>>();  // Tipar correctamente el hook useNavigation
