@@ -12,6 +12,7 @@ import { MenuProvider } from "react-native-popup-menu";
 import { ProfileUserScreens } from "./src/Presentation/views/profile/info/profileInfo";
 import RoleScreen from "./src/Presentation/views/roles/Roles";
 import { ProfileInfoScreenEdit } from "./src/Presentation/views/profile/editprofile/ProfileInfo";
+import UpdateProfileScreen from "./src/Presentation/views/profile/update/ProfileUpdate";
 
 export type RootStackParamList = {
   //aqui definimos que tipos de datos van a recibir esas pantallas
@@ -23,6 +24,7 @@ export type RootStackParamList = {
   RoleScreen: undefined;
   ProfileInfoScreenEdit: undefined;
   CreateClass: undefined;
+  UpdateProfileScreen: undefined;
   EditRole: {
     userInfo: {
       name: string;
@@ -78,6 +80,17 @@ const App = () => {
               options={{
                 headerShown: true,
                 title: "VideoClassScreen",
+              }}
+            />
+          }
+
+          {
+            <Stack.Screen
+              name="UpdateProfileScreen"
+              component={UpdateProfileScreen}
+              options={{
+                headerShown: true,
+                title: "Update",
               }}
             />
           }

@@ -1,133 +1,124 @@
-/* import React, { useEffect, useState } from 'react'
-import { Image, ActivityIndicator, View, Text, ScrollView, ToastAndroid, TouchableOpacity } from 'react-native';
-import { CustomTextInput } from '../../../components/CustomTextInput';
-import { RoundedButton } from '../../../components/RoundedButton';
-import useViewModel from './ViewModel';
-import styles from './Styles';
-import { ModalPickImage } from '../../../components/ModalPickImage';
-import { StackScreenProps } from '@react-navigation/stack';
-import { MyColors } from '../../../theme/AppTheme';
-import { RootStackParamList } from '../../../navigator/MainStackNavigator';
+import React, { useEffect, useState } from "react";
+import {
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  ActivityIndicator,
+  ToastAndroid,
+} from "react-native";
+import { RoundedButton } from "../../../../Presentation/components/RoundedButton";
+import useViewModel from "./ViewModel";
+import { CustomTextInput } from "../../../components/CustomTextInput";
+import styles from "./Styles";
+import { ModalPickImage } from "../../../components/modalPickImage";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../../../App";
+import { MyColors } from "../../../theme/AppTheme";
+import { Picker } from "@react-native-picker/picker";
+import { Teacher } from "../../../../Domain/entities/Teacher";
+import { Course } from "../../../../Domain/entities/Course";
 
+interface Props
+  extends StackScreenProps<RootStackParamList, "UpdateProfileScreen"> {}
 
-interface Props extends StackScreenProps<RootStackParamList, 'ProfileUpdateScreen'>{};
-
-export const ProfileUpdateScreen = ({navigation, route}: Props) => {
-
-  const { user } = route.params;
-  const { name, lastname, image, phone, loading, errorMessage, successMessage, onChange, onChangeInfoUpdate, update, pickImage, takePhoto } = useViewModel(user);
+export default function UpdateProfileScreen({ navigation, route }: Props) {
+  const {
+    full_name,
+    numero,
+    onChange,
+    onChangeInfoUpdate,
+    register,
+    errorMessage,
+    loadingElement,
+    pickImage,
+    takePhoto,
+    user,
+    roles,
+    teachers,
+    courses,
+    image,
+    id_rol,
+  } = useViewModel();
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    if (errorMessage != '') {
+    if (errorMessage) {
       ToastAndroid.show(errorMessage, ToastAndroid.LONG);
     }
-  }, [errorMessage])
-  
+  }, [errorMessage]);
+
   useEffect(() => {
-    if (successMessage != '') {
-      ToastAndroid.show(successMessage, ToastAndroid.LONG);
-    }
-  }, [successMessage])
-
- 
+    onChangeInfoUpdate(user?.full_name ?? "", user?.numero ?? "");
+  }, [user]);
   return (
-    // COLUMN
     <View style={styles.container}>
+      <Image
+        source={require("../../../../../assets/background-login.png")}
+        style={styles.imageBackground}
+      />
 
-        <Image
-          source={ require('../../../../../assets/city.jpg') } 
-          style={ styles.imageBackground }
+      {/* LOGO SUPERIOR CENTRAL */}
+      <View style={styles.logoContainer}>
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          {image === "" ? (
+            <Image source={{ uri: user?.image }} style={styles.logoImage} />
+          ) : (
+            <Image source={{ uri: image }} style={styles.logoImage} />
+          )}
+        </TouchableOpacity>
+        <Text style={styles.logoText}>Select a picture</Text>
+      </View>
+
+      {/* COMIENZA FORMULARIO */}
+      <View style={styles.form}>
+        <ScrollView>
+          <Text style={styles.formText}>Sign Up!</Text>
+
+          {/* COMIENZA SEGUNDO INPUT */}
+          <Text style={styles.formTextTitleInput}>Full name</Text>
+          <CustomTextInput
+            image={require("../../../../../assets/my_user.png")}
+            placeholder="Full name"
+            keyboardType="default"
+            value={full_name}
+            property="full_name"
+            onChangeText={onChange}
           />
 
-        <View style={ styles.logoContainer }>
-          <TouchableOpacity onPress={() => setModalVisible(true)}>
-            {
-              image == ''
-              ? <Image 
-                  source={{ uri: user?.image }}
-                  style={ styles.logoImage }
-              />
-              : <Image 
-                  source={{ uri: image }}
-                  style={ styles.logoImage }
-                />
-            }
-            
-          </TouchableOpacity>
-
-          <Text style={ styles.logoText }>SELECCIONA UNA IMAGEN</Text>
-        </View>
-
-        <View style={ styles.form }>
-
-          <ScrollView>
-
-            <Text style={ styles.formText }>ACTUALIZAR</Text>
-
-            <CustomTextInput 
-              placeholder='Nombres'
-              keyboardType='default'
-              image={ require('../../../../../assets/user.png') }
-              property='name'
-              onChangeText={ onChange }
-              value={ name }
-              />
-
-
-            <CustomTextInput 
-              placeholder='Apellidos'
-              keyboardType='default'
-              image={ require('../../../../../assets/my_user.png') }
-              property='lastname'
-              onChangeText={ onChange }
-              value={ lastname }
-              />
-            
-            
-            <CustomTextInput 
-              placeholder='Telefono'
-              keyboardType='numeric'
-              image={ require('../../../../../assets/phone.png') }
-              property='phone'
-              onChangeText={ onChange }
-              value={ phone }
-              />
-
-            <View style={{ marginTop: 30 }}>
-                
-                <RoundedButton text='CONFIRMAR' onPress={ () => update()} />
-
-            </View>
-
-          </ScrollView>
-
-        </View>
-        
-
-        <ModalPickImage
-          openGallery={ pickImage }
-          openCamera={ takePhoto }
-          modalUseState={ modalVisible }
-          setModalUseState={ setModalVisible }
+          {/* COMIENZA CUARTO INPUT */}
+          <Text style={styles.formTextTitleInput}>Your phone number</Text>
+          <CustomTextInput
+            image={require("../../../../../assets/phone.png")}
+            placeholder="(+12) 345-67890"
+            keyboardType="numeric"
+            value={numero}
+            property="numero"
+            onChangeText={onChange}
           />
 
-        {
-          loading && 
-          <ActivityIndicator 
-            style={styles.loading} 
-            size="large" 
-            color={ MyColors.primary }  
-          />
-        }
-        
+          {/* COMIENZA BOTON */}
+          <View>
+            <RoundedButton text="Sign up" onPress={() => register()} />
+          </View>
+        </ScrollView>
+      </View>
 
+      <ModalPickImage
+        openGallery={pickImage}
+        openCamera={takePhoto}
+        setModalUseState={setModalVisible}
+        modalUseState={modalVisible}
+      />
+
+      {loadingElement && (
+        <ActivityIndicator
+          style={styles.loading}
+          size="large"
+          color={MyColors.primaryClasses}
+        />
+      )}
     </View>
-    );
+  );
 }
-    
-// HOT RELOAD
-
-
-    
- */

@@ -1,9 +1,8 @@
 import { UserLocalRepositoryImpl } from "../../../Data/repositories/UserLocalRepository";
 import { User } from "../../entities/User";
 
-const {getUserInformation} = new UserLocalRepositoryImpl();
+const userRepository = new UserLocalRepositoryImpl();
 
-export  const getUserLocalUseCase = async () => 
-    {
-        return await getUserInformation();
-    }
+export const getUserLocalUseCase = async (): Promise<User | null> => {
+  return await userRepository.getUserInformation();
+};
