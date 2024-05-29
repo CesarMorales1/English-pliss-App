@@ -40,8 +40,11 @@ export default function RegisterScreen({ navigation, route }: Props) {
     roles,
     teachers,
     courses,
+    setCourses,
     image,
     id_rol,
+    setActualTeacher,
+    actualTeacher,
   } = useViewModel();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -54,9 +57,16 @@ export default function RegisterScreen({ navigation, route }: Props) {
   useEffect(() => {
     console.log(JSON.stringify(user));
     if (user?.id_user && user?.session_token) {
-      navigation.replace("ClassesScreen", { isTeacher: true });
+      const isTeacher = Number(user.id_rol) === 1 ? false : true;
+      navigation.replace("ClassesScreen", { isTeacher: isTeacher });
     }
   }, [user]);
+
+  const handleTeacherChange = (teacherCourses: Course[]) => {
+    console.log("Selected Teacher Courses:", teacherCourses);
+    setCourses(teacherCourses);
+    onChange("id_teacher", teacherCourses[0].id_teacher);
+  };
 
   return (
     <View style={styles.container}>
@@ -113,7 +123,7 @@ export default function RegisterScreen({ navigation, route }: Props) {
           </View>
 
           {/* Mostrar los selectores adicionales si el rol es profesor */}
-          {id_rol === 1 && (
+          {Number(id_rol) === 1 && (
             <>
               {/* Selector de Profesor */}
               <Text style={styles.formTextTitleInput}>Select a Teacher</Text>
@@ -124,10 +134,14 @@ export default function RegisterScreen({ navigation, route }: Props) {
                 />
                 <Picker
                   style={styles.formPicker}
-                  /* selectedValue={id_teacher}
-                  onValueChange={(itemValue) =>
-                    onChange("id_teacher", itemValue)
-                  } */
+                  onValueChange={(itemValue) => {
+                    const selectedTeacher = teachers.find(
+                      (teacher) => teacher.id_teacher === itemValue
+                    );
+                    handleTeacherChange(
+                      selectedTeacher ? selectedTeacher.courses : []
+                    );
+                  }}
                 >
                   <Picker.Item
                     label="Select a Teacher"
@@ -137,8 +151,8 @@ export default function RegisterScreen({ navigation, route }: Props) {
                   />
                   {teachers.map((teacher: Teacher) => (
                     <Picker.Item
-                      key={teacher.id_teacher}
-                      label={teacher.name_teacher}
+                      key={Number(teacher.id_teacher)}
+                      label={teacher.full_name}
                       value={teacher.id_teacher}
                     />
                   ))}
@@ -154,10 +168,9 @@ export default function RegisterScreen({ navigation, route }: Props) {
                 />
                 <Picker
                   style={styles.formPicker}
-                  /* selectedValue={id_courses}
                   onValueChange={(itemValue) =>
                     onChange("id_courses", itemValue)
-                  } */
+                  }
                 >
                   <Picker.Item
                     label="Select a Course"
@@ -168,7 +181,7 @@ export default function RegisterScreen({ navigation, route }: Props) {
                   {courses.map((course: Course) => (
                     <Picker.Item
                       key={course.id_course}
-                      label={course.name_course}
+                      label={course.id_name_course}
                       value={course.id_course}
                     />
                   ))}

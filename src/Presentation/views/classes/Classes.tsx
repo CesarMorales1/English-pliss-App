@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { 
   View, ScrollView, 
   Text, TouchableOpacity,
@@ -12,12 +12,12 @@ import { styles } from './Styles'
 import useViewModel from './ViewModel'
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../App'; 
-
+import {useUserLocal} from "../../hooks/useUserLocal"
 const screenWidth = Dimensions.get("screen").width //obtiene el ancho de la pantalla
-
 //simulacion de bd envia los datos al componente ClassList
+
 const classes = [
-  { id: "01", title: "Welcome to the course", viewed: true, duration: "06:10" },
+  { id: "01", title: "Welcomi to the course", viewed: true, duration: "06:10" },
   { id: "02", title: "Verb To-Be English Plis", viewed: true, duration: "06:10" },
   { id: "03", title: "Sentences", viewed: false, duration: "06:10" },
   { id: "04", title: "Simple present", viewed: false, duration: "06:10" },
@@ -50,6 +50,8 @@ interface ClassesScreenProps {
 
 
 export default function Classes({ route }: ClassesScreenProps) {
+//  const {getUserSession,user} = useUserLocal();
+//  console.log(user);
  const { isTeacher } = route.params;
  const {xPosition,setXPosition,scrollViewRef,ScrollTo,onEndScroll}= useViewModel ();
  const navigation = useNavigation<NavigationProp<RootStackParamList>>();  // Tipar correctamente el hook useNavigation

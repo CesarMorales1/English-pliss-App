@@ -1,12 +1,15 @@
 
 import { useRef, useState} from 'react'
 import {ScrollView, Dimensions } from 'react-native'
+import { useUserLocal } from '../../hooks/useUserLocal'
 const screenWidth = Dimensions.get("screen").width
 
+
 export default function ViewModel() {
-    
+    const {getUserSession,user} = useUserLocal();
+    console.log('hey ' + JSON.stringify(user));
     const [xPosition, setXPosition] = useState(0)
-   
+   console.log(user);
     const scrollViewRef = useRef<ScrollView>(null)
     
     const ScrollTo = (xPosition: number) => {

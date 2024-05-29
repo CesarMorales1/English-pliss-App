@@ -20,11 +20,11 @@ interface Props extends StackScreenProps<RootStackParamList, "HomeScreen"> {}
 export const HomeScreen = ({ navigation, route }: Props) => {
   // Parte de Alex verificar si es prof o estudiante
 
-  //   const onSubmito = () => {
-  //     return navigation.navigate('ClassesScreen', {
-  //       isTeacher: true
-  //     })
-  // }
+  const onSubmito = () => {
+    return navigation.navigate("ClassesScreen", {
+      isTeacher: true,
+    });
+  };
 
   const { email, password, onChange, errorMessage, login, user } =
     useViewModel();
@@ -36,7 +36,7 @@ export const HomeScreen = ({ navigation, route }: Props) => {
   }, [errorMessage]);
 
   useEffect(() => {
-    if (user?.id_user && user?.session_token) {
+    if (user?.id_user && user?.session_token && user.id_user !== "") {
       //TODO: Aqui colocar el nombre de la vista
       navigation.replace("ProfileInfoScreenEdit");
     }

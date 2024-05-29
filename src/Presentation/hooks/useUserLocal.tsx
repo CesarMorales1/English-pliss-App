@@ -16,6 +16,7 @@ export const useUserLocal = () => {
 
   return {
     user,
-    getUserSession, // Asegurarse de que getUserSession sea parte del objeto retornado
+    getUserSession,
+    setUser, // Asegurarse de que getUserSession sea parte del objeto retornado
   };
 };

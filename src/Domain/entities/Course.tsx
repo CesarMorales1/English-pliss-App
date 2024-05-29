@@ -1,4 +1,5 @@
 export type Course = {
-    id_course: number;
-    name_course: string;
+    id_teacher: string,
+    id_name_course: string;
+    id_course: string
   };

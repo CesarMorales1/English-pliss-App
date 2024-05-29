@@ -14,7 +14,7 @@ export const ProfileInfoScreenEdit = () => {
 
   useEffect(() => {
     if (user?.id_user === "") {
-      navigation.replace("HomeScreen");
+      navigation.navigate("HomeScreen");
     }
   }, [user]);
 

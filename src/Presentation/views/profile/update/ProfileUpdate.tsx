@@ -16,9 +16,6 @@ import { ModalPickImage } from "../../../components/modalPickImage";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../../../App";
 import { MyColors } from "../../../theme/AppTheme";
-import { Picker } from "@react-native-picker/picker";
-import { Teacher } from "../../../../Domain/entities/Teacher";
-import { Course } from "../../../../Domain/entities/Course";
 
 interface Props
   extends StackScreenProps<RootStackParamList, "UpdateProfileScreen"> {}
@@ -35,12 +32,8 @@ export default function UpdateProfileScreen({ navigation, route }: Props) {
     pickImage,
     takePhoto,
     user,
-    roles,
-    teachers,
-    courses,
-    image,
-    id_rol,
   } = useViewModel();
+
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -52,6 +45,12 @@ export default function UpdateProfileScreen({ navigation, route }: Props) {
   useEffect(() => {
     onChangeInfoUpdate(user?.full_name ?? "", user?.numero ?? "");
   }, [user]);
+
+  const handleUpdate = async () => {
+    await register();
+    navigation.navigate("ProfileInfoScreenEdit"); // Redirige al usuario después de la actualización
+  };
+
   return (
     <View style={styles.container}>
       <Image
@@ -59,36 +58,21 @@ export default function UpdateProfileScreen({ navigation, route }: Props) {
         style={styles.imageBackground}
       />
 
-      {/* LOGO SUPERIOR CENTRAL */}
-      <View style={styles.logoContainer}>
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
-          {image === "" ? (
-            <Image source={{ uri: user?.image }} style={styles.logoImage} />
-          ) : (
-            <Image source={{ uri: image }} style={styles.logoImage} />
-          )}
-        </TouchableOpacity>
-        <Text style={styles.logoText}>Select a picture</Text>
-      </View>
-
-      {/* COMIENZA FORMULARIO */}
       <View style={styles.form}>
         <ScrollView>
-          <Text style={styles.formText}>Sign Up!</Text>
+          <Text style={styles.formText}>Actualizar perfil</Text>
 
-          {/* COMIENZA SEGUNDO INPUT */}
-          <Text style={styles.formTextTitleInput}>Full name</Text>
+          <Text style={styles.formTextTitleInput}>Nombre completo</Text>
           <CustomTextInput
             image={require("../../../../../assets/my_user.png")}
-            placeholder="Full name"
+            placeholder="Nombre completo"
             keyboardType="default"
             value={full_name}
             property="full_name"
             onChangeText={onChange}
           />
 
-          {/* COMIENZA CUARTO INPUT */}
-          <Text style={styles.formTextTitleInput}>Your phone number</Text>
+          <Text style={styles.formTextTitleInput}>Número de teléfono</Text>
           <CustomTextInput
             image={require("../../../../../assets/phone.png")}
             placeholder="(+12) 345-67890"
@@ -98,9 +82,8 @@ export default function UpdateProfileScreen({ navigation, route }: Props) {
             onChangeText={onChange}
           />
 
-          {/* COMIENZA BOTON */}
           <View>
-            <RoundedButton text="Sign up" onPress={() => register()} />
+            <RoundedButton text="Actualizar" onPress={handleUpdate} />
           </View>
         </ScrollView>
       </View>

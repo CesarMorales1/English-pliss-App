@@ -1,5 +1,9 @@
+import { Course } from "./Course";
+
 export type Teacher = {
-    id_teacher: number;
-    name_teacher: string;
+    id_teacher: Number;
+    id_user: string
+    full_name: string;
+    courses: Course[];
   };
   

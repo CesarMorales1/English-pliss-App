@@ -1,19 +1,27 @@
 import React, { useContext } from "react";
 import { useUserLocal } from "../../../hooks/useUserLocal";
 import { removeUserLocalUseCase } from "../../../../Domain/useCase/userLocal/removeUserLocal";
-/* import { RemoveUserLocalUseCase } from '../../../../Domain/useCases/userLocal/RemoveUserLocal';
-import { UserContext } from '../../../context/UserContext';
- */
-const ProfileInfoViewModel = () => {
-  /*   const { user, removeUserSession } = useContext(UserContext); */
+import { getUserLocalUseCase } from "../../../../Domain/useCase/userLocal/getUserLocal";
+import { UserContext } from "../../../context/UserContext";
 
-  const { user } = useUserLocal();
+const ProfileInfoViewModel = () => {
+  /*   const { user, setUser } = useUserLocal();
 
   const removeSession = async () => {
     await removeUserLocalUseCase();
   };
 
-  return { removeSession, user };
+  const loadUser = async () => {
+    const loadedUser = await getUserLocalUseCase();
+    setUser(loadedUser);
+  }; */
+  const { setUser } = useUserLocal();
+  const removeSession = async () => {
+    await removeUserLocalUseCase();
+  };
+  const { user } = useContext(UserContext);
+
+  return { user, removeSession };
 };
 
 export default ProfileInfoViewModel;
