@@ -10,7 +10,7 @@ import Layout from "../../../components/Layout";
 
 export const ProfileInfoScreenEdit = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  const { user, removeSession } = useViewModel();
+  const { user, removeUserSession } = useViewModel();
 
   useEffect(() => {
     if (user?.id_user === "") {
@@ -29,8 +29,7 @@ export const ProfileInfoScreenEdit = () => {
         <Pressable
           style={styles.logout}
           onPress={() => {
-            removeSession();
-            navigation.navigate("HomeScreen");
+            removeUserSession();
           }}
         >
           <Image
@@ -39,15 +38,17 @@ export const ProfileInfoScreenEdit = () => {
           />
         </Pressable>
 
-        <Pressable style={styles.change} onPress={() => {}}>
+        {/*  <Pressable style={styles.change} onPress={() => {}}>
           <Image
             source={require("../../../../../assets/exchange.png")}
             style={styles.logoutImage}
           />
-        </Pressable>
+        </Pressable> */}
 
         <View style={styles.logoContainer}>
-          <Image source={{ uri: user?.image }} style={styles.logoImage} />
+          {user?.image !== "" && (
+            <Image source={{ uri: user?.image }} style={styles.logoImage} />
+          )}
         </View>
 
         <View style={styles.form}>

@@ -42,7 +42,7 @@ export const UserProvider = ({ children }: any) => {
 
   const removeUserSession = async () => {
     await removeUserLocalUseCase();
-    setUser(null);
+    setUser(userInitialState);
   };
 
   return (

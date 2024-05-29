@@ -5,23 +5,19 @@ import { getUserLocalUseCase } from "../../../../Domain/useCase/userLocal/getUse
 import { UserContext } from "../../../context/UserContext";
 
 const ProfileInfoViewModel = () => {
-  /*   const { user, setUser } = useUserLocal();
+  /* const { user, setUser } = useUserLocal();
 
   const removeSession = async () => {
     await removeUserLocalUseCase();
-  };
-
-  const loadUser = async () => {
-    const loadedUser = await getUserLocalUseCase();
-    setUser(loadedUser);
   }; */
-  const { setUser } = useUserLocal();
+
+  /* 
   const removeSession = async () => {
     await removeUserLocalUseCase();
-  };
-  const { user } = useContext(UserContext);
+  }; */
+  const { user, removeUserSession } = useContext(UserContext);
 
-  return { user, removeSession };
+  return { user, removeUserSession };
 };
 
 export default ProfileInfoViewModel;
