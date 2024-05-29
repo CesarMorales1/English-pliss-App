@@ -1,3 +1,4 @@
+import { Role } from "./Role";
 export interface User {
   id_user?: string;
   full_name: string;
@@ -6,4 +7,5 @@ export interface User {
   password: string;
   image?: string;
   session_token?: string;
+  id_rol: Role[];
 }

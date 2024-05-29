@@ -58,7 +58,7 @@ export default function RegisterScreen({ navigation, route }: Props) {
     console.log(JSON.stringify(user));
     if (user?.id_user && user?.session_token) {
       const isTeacher = Number(user.id_rol) === 1 ? false : true;
-      navigation.replace("ClassesScreen", { isTeacher: isTeacher });
+      navigation.replace("HomeScreen");
     }
   }, [user]);
 
