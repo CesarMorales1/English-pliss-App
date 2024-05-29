@@ -14,15 +14,15 @@ import { Course } from "../../../Domain/entities/Course";
 import { ResponseApi } from "../../../Data/sources/remote/api/models/responseApi";
 
 const RegisterViewModel = () => {
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const [values, setValues] = useState({
-    full_name: '',
-    email: '',
-    numero: '',
-    password: '',
-    image: '',
-    confirmPassword: '',
-    id_rol: '', // Agregar id_rol al estado
+    full_name: "",
+    email: "",
+    numero: "",
+    password: "",
+    image: "",
+    confirmPassword: "",
+    id_rol: "", // Agregar id_rol al estado
   });
 
   const [loadingElement, setloadingElement] = useState(false);
@@ -58,25 +58,27 @@ const RegisterViewModel = () => {
       courseInfo.push(actCourse);
     }
     return courseInfo;
-  }
+  };
 
   const getAllProfessors = async (): Promise<void> => {
     try {
       const response = await GetAllProfessorsAuthUseCase();
       if (response.success && Array.isArray(response.data)) {
-        const teachers = response.data.map((teacher: Teacher): Teacher => ({
-          id_teacher: teacher.id_teacher,
-          id_user: teacher.id_user,
-          full_name: teacher.full_name,
-          courses: getCourseInfo(teacher.courses)
-        }));
+        const teachers = response.data.map(
+          (teacher: Teacher): Teacher => ({
+            id_teacher: teacher.id_teacher,
+            id_user: teacher.id_user,
+            full_name: teacher.full_name,
+            courses: getCourseInfo(teacher.courses),
+          })
+        );
         console.log(teachers);
         setTeachers(teachers);
       } else {
-        console.error('Error: La respuesta de la API no es válida');
+        console.error("Error: La respuesta de la API no es válida");
       }
     } catch (error) {
-      console.error('Error al obtener los profesores:', error);
+      console.error("Error al obtener los profesores:", error);
     }
   };
 
@@ -94,11 +96,11 @@ const RegisterViewModel = () => {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       quality: 1,
-      base64: true
+      base64: true,
     });
 
     if (!result.canceled) {
-      onChange('image', result.assets[0].uri);
+      onChange("image", result.assets[0].uri);
       setFile(result.assets[0]);
     }
   };
@@ -108,11 +110,11 @@ const RegisterViewModel = () => {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       quality: 1,
-      base64: true
+      base64: true,
     });
 
     if (!result.canceled) {
-      onChange('image', result.assets[0].uri);
+      onChange("image", result.assets[0].uri);
       setFile(result.assets[0]);
     }
   };
@@ -127,7 +129,7 @@ const RegisterViewModel = () => {
       const apiResponse = await RegisterWithImageUseCase(values, file!);
       setloadingElement(false);
       if (apiResponse.success) {
-        console.log('Aqui la respuesta de la api', apiResponse.data);
+        console.log("Aqui la respuesta de la api", apiResponse.data);
         await saveUserLocalUseCase(apiResponse.data);
         getUserSession();
       } else {
@@ -142,7 +144,7 @@ const RegisterViewModel = () => {
       return false;
     }
     if (isNaN(Number(values.numero)) || !values.numero) {
-      setErrorMessage('Please enter a valid Number');
+      setErrorMessage("Please enter a valid Number");
       return false;
     }
     if (!values.password || !values.confirmPassword) {
@@ -150,7 +152,7 @@ const RegisterViewModel = () => {
       return false;
     }
     if (values.password !== values.confirmPassword) {
-      setErrorMessage('The passwords are not equal');
+      setErrorMessage("The passwords are not equal");
       return false;
     }
     if (!values.email) {
@@ -182,7 +184,7 @@ const RegisterViewModel = () => {
     loadingElement,
     courses,
     actualTeacher,
-    setActualTeacher
+    setActualTeacher,
   };
 };
 

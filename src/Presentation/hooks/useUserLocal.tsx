@@ -1,22 +1,22 @@
-import React, {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { getUserLocalUseCase } from "../../Domain/useCase/userLocal/getUserLocal";
 import { User } from "../../Domain/entities/User";
 
-export const useUserLocal = () => 
-    {
-        const [user,setUser] = useState<User>();
-        useEffect(() => {
-            getUserSession();
-        },[])
-    
-        const getUserSession = async () => 
-            {
-                const user = await getUserLocalUseCase();
-                setUser(user)
-            }
+export const useUserLocal = () => {
+  const [user, setUser] = useState<User | null>(null);
 
-        return {
-            user,
-            getUserSession
-        }
-    }
+  useEffect(() => {
+    getUserSession();
+  }, []);
+
+  const getUserSession = async () => {
+    const fetchedUser = await getUserLocalUseCase();
+    setUser(fetchedUser);
+  };
+
+  return {
+    user,
+    getUserSession,
+    setUser, // Asegurarse de que getUserSession sea parte del objeto retornado
+  };
+};

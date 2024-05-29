@@ -1,23 +1,50 @@
-import React, { useEffect, useState } from 'react';
-import { Image, ScrollView, Text, TouchableOpacity, View, ActivityIndicator, ToastAndroid } from 'react-native';
-import { RoundedButton } from '../../../Presentation/components/RoundedButton';
-import useViewModel from './ViewModel';
-import { CustomTextInput } from '../../components/CustomTextInput';
-import styles from './Styles';
-import { ModalPickImage } from '../../components/modalPickImage';
-import { StackScreenProps } from '@react-navigation/stack';
-import { RootStackParamList } from '../../../../App';
-import { MyColors } from '../../theme/AppTheme';
-import { Picker } from '@react-native-picker/picker';
-import { Teacher } from '../../../Domain/entities/Teacher';
-import { Course } from '../../../Domain/entities/Course';
+import React, { useEffect, useState } from "react";
+import {
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  ActivityIndicator,
+  ToastAndroid,
+} from "react-native";
+import { RoundedButton } from "../../../Presentation/components/RoundedButton";
+import useViewModel from "./ViewModel";
+import { CustomTextInput } from "../../components/CustomTextInput";
+import styles from "./Styles";
+import { ModalPickImage } from "../../components/modalPickImage";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../../App";
+import { MyColors } from "../../theme/AppTheme";
+import { Picker } from "@react-native-picker/picker";
+import { Teacher } from "../../../Domain/entities/Teacher";
+import { Course } from "../../../Domain/entities/Course";
 
-interface Props extends StackScreenProps<RootStackParamList, "RegisterScreen"> { };
+interface Props
+  extends StackScreenProps<RootStackParamList, "RegisterScreen"> {}
 
 export default function RegisterScreen({ navigation, route }: Props) {
   const {
-    full_name, email, numero, password, confirmPassword, onChange, register, errorMessage,
-    loadingElement, pickImage, takePhoto, user, roles, teachers, courses, setCourses, image, id_rol, setActualTeacher, actualTeacher
+    full_name,
+    email,
+    numero,
+    password,
+    confirmPassword,
+    onChange,
+    register,
+    errorMessage,
+    loadingElement,
+    pickImage,
+    takePhoto,
+    user,
+    roles,
+    teachers,
+    courses,
+    setCourses,
+    image,
+    id_rol,
+    setActualTeacher,
+    actualTeacher,
   } = useViewModel();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -31,12 +58,12 @@ export default function RegisterScreen({ navigation, route }: Props) {
     console.log(JSON.stringify(user));
     if (user?.id_user && user?.session_token) {
       const isTeacher = Number(user.id_rol) === 1 ? false : true;
-      navigation.replace('ClassesScreen', { isTeacher: isTeacher });
+      navigation.replace("HomeScreen");
     }
   }, [user]);
 
   const handleTeacherChange = (teacherCourses: Course[]) => {
-    console.log('Selected Teacher Courses:', teacherCourses);
+    console.log("Selected Teacher Courses:", teacherCourses);
     setCourses(teacherCourses);
     onChange("id_teacher", teacherCourses[0].id_teacher);
   };
@@ -44,23 +71,21 @@ export default function RegisterScreen({ navigation, route }: Props) {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../../../../assets/background-login.png')}
+        source={require("../../../../assets/background-login.png")}
         style={styles.imageBackground}
       />
 
       {/* LOGO SUPERIOR CENTRAL */}
       <View style={styles.logoContainer}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
-          {image === "" ?
+          {image === "" ? (
             <Image
               source={require("../../../../assets/user_image.png")}
               style={styles.logoImage}
-            /> :
-            <Image
-              source={{ uri: image }}
-              style={styles.logoImage}
             />
-          }
+          ) : (
+            <Image source={{ uri: image }} style={styles.logoImage} />
+          )}
         </TouchableOpacity>
         <Text style={styles.logoText}>Select a picture</Text>
       </View>
@@ -110,8 +135,12 @@ export default function RegisterScreen({ navigation, route }: Props) {
                 <Picker
                   style={styles.formPicker}
                   onValueChange={(itemValue) => {
-                    const selectedTeacher = teachers.find(teacher => teacher.id_teacher === itemValue);
-                    handleTeacherChange(selectedTeacher ? selectedTeacher.courses : []);
+                    const selectedTeacher = teachers.find(
+                      (teacher) => teacher.id_teacher === itemValue
+                    );
+                    handleTeacherChange(
+                      selectedTeacher ? selectedTeacher.courses : []
+                    );
                   }}
                 >
                   <Picker.Item
@@ -139,7 +168,9 @@ export default function RegisterScreen({ navigation, route }: Props) {
                 />
                 <Picker
                   style={styles.formPicker}
-                  onValueChange={(itemValue) => onChange("id_courses", itemValue)}
+                  onValueChange={(itemValue) =>
+                    onChange("id_courses", itemValue)
+                  }
                 >
                   <Picker.Item
                     label="Select a Course"
@@ -162,65 +193,63 @@ export default function RegisterScreen({ navigation, route }: Props) {
           {/* COMIENZA SEGUNDO INPUT */}
           <Text style={styles.formTextTitleInput}>Full name</Text>
           <CustomTextInput
-            image={require('../../../../assets/my_user.png')}
-            placeholder='Full name'
-            keyboardType='default'
+            image={require("../../../../assets/my_user.png")}
+            placeholder="Full name"
+            keyboardType="default"
             value={full_name}
-            property='full_name'
+            property="full_name"
             onChangeText={onChange}
           />
 
           {/* COMIENZA TERCER INPUT */}
           <Text style={styles.formTextTitleInput}>Email</Text>
           <CustomTextInput
-            image={require('../../../../assets/email.png')}
-            placeholder='example@gmail.com'
-            keyboardType='email-address'
+            image={require("../../../../assets/email.png")}
+            placeholder="example@gmail.com"
+            keyboardType="email-address"
             value={email}
-            property='email'
+            property="email"
             onChangeText={onChange}
           />
 
           {/* COMIENZA CUARTO INPUT */}
           <Text style={styles.formTextTitleInput}>Your phone number</Text>
           <CustomTextInput
-            image={require('../../../../assets/phone.png')}
-            placeholder='(+12) 345-67890'
-            keyboardType='numeric'
+            image={require("../../../../assets/phone.png")}
+            placeholder="(+12) 345-67890"
+            keyboardType="numeric"
             value={numero}
-            property='numero'
+            property="numero"
             onChangeText={onChange}
           />
 
           {/* COMIENZA QUINTO INPUT */}
           <Text style={styles.formTextTitleInput}>Password</Text>
           <CustomTextInput
-            image={require('../../../../assets/password.png')}
-            placeholder='More than 8 characters'
-            keyboardType='default'
+            image={require("../../../../assets/password.png")}
+            placeholder="More than 8 characters"
+            keyboardType="default"
             secureTextEntry={true}
             value={password}
-            property='password'
+            property="password"
             onChangeText={onChange}
           />
 
           {/* COMIENZA SEXTO INPUT */}
           <Text style={styles.formTextTitleInput}>Confirm password</Text>
           <CustomTextInput
-            image={require('../../../../assets/confirm_password.png')}
-            placeholder='Confirm password'
-            keyboardType='default'
+            image={require("../../../../assets/confirm_password.png")}
+            placeholder="Confirm password"
+            keyboardType="default"
             secureTextEntry={true}
             value={confirmPassword}
-            property='confirmPassword'
+            property="confirmPassword"
             onChangeText={onChange}
           />
 
           {/* COMIENZA BOTON */}
           <View>
-            <RoundedButton
-              text='Sign up'
-              onPress={() => register()} />
+            <RoundedButton text="Sign up" onPress={() => register()} />
           </View>
         </ScrollView>
       </View>
@@ -232,13 +261,13 @@ export default function RegisterScreen({ navigation, route }: Props) {
         modalUseState={modalVisible}
       />
 
-      {loadingElement &&
+      {loadingElement && (
         <ActivityIndicator
           style={styles.loading}
           size="large"
           color={MyColors.primaryClasses}
         />
-      }
+      )}
     </View>
   );
 }
