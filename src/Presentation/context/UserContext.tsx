@@ -12,7 +12,7 @@ export const userInitialState: User = {
   password: "",
   image: "",
   session_token: "",
-  id_rol: "",
+  id_rol: [],
 };
 
 export interface UserContextProps {
