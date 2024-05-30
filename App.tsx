@@ -19,7 +19,7 @@ export type RootStackParamList = {
   RegisterScreen: undefined;
   ClassesScreen: { isTeacher: boolean };
   ProfileInfoScreens: undefined;
-  VideoClassScreen: undefined;
+  VideoClassScreen: {videTitle:string,videoDescription:string,videoDuration:string};
   RoleScreen: undefined;
   ProfileInfoScreenEdit: undefined;
   CreateClass:undefined;

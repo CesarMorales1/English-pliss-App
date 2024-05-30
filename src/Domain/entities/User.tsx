@@ -7,4 +7,5 @@ export interface User
     password:  string;
     session_token?: string;
     id_rol? : string
+    idCourse: string
 }

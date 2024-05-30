@@ -39,8 +39,8 @@ export const HomeScreen = ({ navigation, route }: Props) => {
     if (user?.id_user && user?.session_token) {
       //TODO: Aqui colocar el nombre de la vista
       const isTeacher = Number(user.id_rol) === 1? false : true;
-      navigation.replace("ClassesScreen",{isTeacher: isTeacher});
-      // navigation.replace('ProfileInfoScreens');
+      // navigation.replace("ClassesScreen",{isTeacher: isTeacher});
+      navigation.replace('ProfileInfoScreens');
     }
   }, [user]);
 

@@ -8,6 +8,7 @@ export interface ClassProps {
   title: string,
   viewed: boolean,
   duration: string,
+  description: string
 }
 
 export default function ClassList({ classes, isTeacher }: { classes: ClassProps[], isTeacher?: boolean }) {
