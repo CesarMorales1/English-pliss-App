@@ -8,5 +8,5 @@ export interface User {
   image?: string;
   session_token?: string;
   id_rol: string;
-  idCourse: string
+  idCourse?: string
 }
