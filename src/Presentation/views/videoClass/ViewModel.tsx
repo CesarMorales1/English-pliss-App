@@ -5,6 +5,7 @@ import { useUserLocal } from "../../hooks/useUserLocal";
 import { ClassProps } from "../../components/ClassList";
 import { getVideosUseCase } from '../../../Domain/useCase/student/getVideosStudent'
 import { Video } from '../../../Domain/entities/Video'
+import { getVideosUseCaseProfesor } from "../../../Domain/useCase/professor/GetVideosProfessor";
 
 export default function useViewModel()
 {
@@ -47,8 +48,26 @@ export default function useViewModel()
 
   useEffect(() => {
     if (user) {
-        const isTeacher = Number(user.id_rol) == 2? true : false;
-        setTeacher(isTeacher);
+        if(Number(user.id_rol) === 2)
+            {
+                getVideosUseCaseProfesor(user.id_user!)
+                .then((result) => result.data)
+                .then((fetchedVideos: Video[]) => 
+                  {
+                    const transformedClasses = fetchedVideos.map((video: Video) => (
+                      {
+                        id: video.id_video,
+                        title: video.titulo,
+                        viewed: true,
+                        duration: video.duration_video,
+                        description: video.detail_video
+                      }));
+                      setClasses(transformedClasses);
+                  })
+                .catch(error => console.error('Error al obtener videos: ', error))
+                return;
+            }
+        
         getVideosUseCase(user.idCourse)
             .then((result) => result.data)
             .then((fetchedVideos: Video[]) => 
@@ -59,8 +78,7 @@ export default function useViewModel()
                     title: video.titulo,
                     viewed: true,
                     duration: video.duration_video,
-                    about: 'About class',
-                    description: video.detail_video,
+                    description: video.detail_video
                   }));
                   setClasses(transformedClasses);
               })

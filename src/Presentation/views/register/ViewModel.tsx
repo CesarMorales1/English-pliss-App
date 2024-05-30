@@ -64,16 +64,15 @@ const RegisterViewModel = () => {
     try {
       const response = await GetAllProfessorsAuthUseCase();
       if (response.success && Array.isArray(response.data)) {
-        const teachers = response.data.map(
-          (teacher: Teacher): Teacher => ({
+        const teachers = response.data
+          .filter((teacher: Teacher) => teacher.courses && teacher.courses.length > 0)
+          .map((teacher: Teacher): Teacher => ({
             id_teacher: teacher.id_teacher,
             id_user: teacher.id_user,
             full_name: teacher.full_name,
             courses: getCourseInfo(teacher.courses),
-          })
-        );
-        console.log(teachers);
-        setTeachers(teachers);
+          }));
+          setTeachers(teachers)
       } else {
         console.error("Error: La respuesta de la API no es válida");
       }
