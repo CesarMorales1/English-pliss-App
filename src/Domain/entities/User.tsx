@@ -7,5 +7,6 @@ export interface User {
   password: string;
   image?: string;
   session_token?: string;
-  id_rol: Role[];
+  id_rol: string;
+  idCourse: string
 }

@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import { 
   View, ScrollView, 
   Text, TouchableOpacity,
@@ -11,35 +11,11 @@ import { MyColors } from '../../theme/AppTheme'
 import { styles } from './Styles'
 import useViewModel from './ViewModel'
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../App'; 
-import {useUserLocal} from "../../hooks/useUserLocal"
-const screenWidth = Dimensions.get("screen").width //obtiene el ancho de la pantalla
-//simulacion de bd envia los datos al componente ClassList
+import { RootStackParamList } from '../../../../App';
 
-const classes = [
-  { id: "01", title: "Welcomi to the course", viewed: true, duration: "06:10" },
-  { id: "02", title: "Verb To-Be English Plis", viewed: true, duration: "06:10" },
-  { id: "03", title: "Sentences", viewed: false, duration: "06:10" },
-  { id: "04", title: "Simple present", viewed: false, duration: "06:10" },
-  { id: "05", title: "Simple past", viewed: false, duration: "06:10" },
-  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
-  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
-  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
-  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
-  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
-  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
-  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
-  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
-  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
-  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
-  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
-  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
-  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
-  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
-  { id: "06", title: "Simple future", viewed: false, duration: "06:10" },
-]
+const screenWidth = Dimensions.get("screen").width
 
-//Propiedades de la vista  params recibe parametros de is teacher 
+//Propiedades de la vista params recibe parametros de is teacher 
 interface ClassesScreenProps {
   route: {
     params: {
@@ -48,20 +24,14 @@ interface ClassesScreenProps {
   };
 }
 
-
 export default function Classes({ route }: ClassesScreenProps) {
-//  const {getUserSession,user} = useUserLocal();
-//  console.log(user);
  const { isTeacher } = route.params;
- const {xPosition,setXPosition,scrollViewRef,ScrollTo,onEndScroll}= useViewModel ();
+ const { xPosition, setXPosition, scrollViewRef, ScrollTo, onEndScroll, classes } = useViewModel();
  const navigation = useNavigation<NavigationProp<RootStackParamList>>();  // Tipar correctamente el hook useNavigation
 
   return (
-
-    //Etiqueta de Layout para que se mumestre le menu en una vista(colocar el contenido de la vista dentro de layaut ojo el layaout ya trae el menu)
     <Layout selected='first'>
       <View style={styles.main}>
-        {/* TITULO */}
         <View style={styles.header}>
           <Text style={styles.headerTitle}>
             Classes
@@ -71,10 +41,9 @@ export default function Classes({ route }: ClassesScreenProps) {
             <Text style={styles.addButtonText}>
               +
             </Text>
-        </TouchableOpacity>
+          </TouchableOpacity>
         </View>
 
-        {/* CABECERA */}
         <View style={[styles.items, { display: isTeacher ? "none" : "flex" }]}>
           <TouchableOpacity 
             style={
@@ -105,14 +74,11 @@ export default function Classes({ route }: ClassesScreenProps) {
           </TouchableOpacity>
         </View>
 
-        {/* CONTENIDO CON LA LISTA DE LOS DOS TIPOS DE CURSOS */}
-
         <ScrollView 
           ref={scrollViewRef} 
           horizontal={true}
           onScrollEndDrag={onEndScroll}
         >
-
           <ScrollView style={styles.classesContainer}>
             <ClassList classes={classes} isTeacher={isTeacher} />
           </ScrollView>
@@ -123,6 +89,5 @@ export default function Classes({ route }: ClassesScreenProps) {
         </ScrollView>
       </View> 
     </Layout>
-
   )
 }
