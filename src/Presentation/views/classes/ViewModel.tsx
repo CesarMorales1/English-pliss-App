@@ -23,6 +23,7 @@ export default function useViewModel() {
 
     useEffect(() => {
         if (user) {
+            console.log(user);
             getVideosUseCase(user.idCourse)
                 .then((result) => result.data)
                 .then((fetchedVideos: Video[]) => 
