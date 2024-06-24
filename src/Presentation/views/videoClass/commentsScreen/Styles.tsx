@@ -1,8 +1,8 @@
 import { MyColors } from '../../../theme/AppTheme';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 
-const ClassesScreen = StyleSheet.create({
+const CommentsStyles = StyleSheet.create({
     container:{
         flex:1,
         flexDirection:'column',
@@ -27,6 +27,7 @@ const ClassesScreen = StyleSheet.create({
     },
     containerComment:{
         flex:1,
+        flexWrap: 'wrap',
     },
     textComment:{
         fontSize:17,
@@ -74,4 +75,4 @@ const ClassesScreen = StyleSheet.create({
       },
   });
 
-export default ClassesScreen;
+export default CommentsStyles;

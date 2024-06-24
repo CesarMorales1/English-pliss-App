@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       padding:8,
       marginLeft: 15,
+      fontSize: 15,
   },
   formIcon:{
     width :25,

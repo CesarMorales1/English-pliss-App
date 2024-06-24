@@ -17,11 +17,9 @@ const CommentViewModel = () => {
         comment
     };
 };
-
 export default CommentViewModel;
 
 
-//-----------------------------------------------------------------------------------
 // Simulación de datos de clase
 const classData = {
     nameUser: 'User',
@@ -38,7 +36,6 @@ return new Promise((resolve) => {
     }); // Simula un retraso en la obtención de datos
 });
 }
-
 
 // Simulación de datos de video
 const imagenData = {

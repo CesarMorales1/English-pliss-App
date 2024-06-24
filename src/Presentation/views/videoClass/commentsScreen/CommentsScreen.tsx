@@ -6,15 +6,22 @@ import styles from "./Styles";
 import { Menu, MenuOption, MenuOptions, MenuTrigger } from 'react-native-popup-menu';
 import { MenuProvider } from 'react-native-popup-menu';
 import CommentViewModel from './ViewModel'
+import { truncateText } from '../../../components/TruncateText';
 
 
 
 export default function CommentScreen() {
 
+    /* PARA TRUNCAR */
+    const [isExpanded, setIsExpanded] = useState(false);
+    const toggleExpand = () => {
+      setIsExpanded(!isExpanded);
+    };
+
     const viewModel = CommentViewModel();
     const [classInfo, setClassInfo] = useState<any>(null);
     const [imagenInfo, setImagenInfo] = useState<any>(null);
-  
+
     useEffect(() => {
         const fetchClassAndImagenInfo = async () => {
           try {
@@ -60,7 +67,12 @@ return (
                 </View>
 
                 <View style={styles.containerComment}>
-                    <Text style={styles.textComment}>{classInfo?.userComment}</Text>
+                    <TouchableOpacity onPress={toggleExpand}>
+                        <Text style={styles.textComment}>
+                            {isExpanded ? classInfo?.userComment : truncateText(classInfo?.userComment, 50)}
+                        </Text>
+                    </TouchableOpacity>
+                    {/* <Text style={styles.textComment}>{classInfo?.userComment}</Text> */}
                 </View>
             </View>
         </ScrollView>

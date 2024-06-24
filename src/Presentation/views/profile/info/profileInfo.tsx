@@ -1,24 +1,25 @@
-import React from 'react'
-import { View , Text,Button} from 'react-native'
+import React from "react";
+import { View, Text, Button } from "react-native";
 import useViewModel from "./viewModel";
-import { StackScreenProps } from '@react-navigation/stack';
-import { RootStackParamList } from '../../../../../App';
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../../../App";
 
-interface Props extends StackScreenProps<RootStackParamList,'ProfileInfoScreen'>{};
-
+interface Props
+  extends StackScreenProps<RootStackParamList, "ProfileInfoScreens"> {}
 
 //usar la palabra screen como convencion
-export const ProfileUserScreen = ({navigation,route}: Props) => {
+export const ProfileUserScreens = ({ navigation, route }: Props) => {
+  const { removeSession } = useViewModel();
 
-  const {removeSession} = useViewModel();
-
-  return (<View style = {{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-    <Button title='Cerrar session'
-    onPress={() => 
-      {
-        removeSession();
-        navigation.navigate('HomeScreen');
-      }}
-    />
-  </View>)
-}
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Button
+        title="Cerrar session"
+        onPress={() => {
+          removeSession();
+          navigation.navigate("HomeScreen");
+        }}
+      />
+    </View>
+  );
+};

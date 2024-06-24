@@ -34,8 +34,9 @@ const RegisterStyles = StyleSheet.create({
         marginTop: 10,
     },
     formTextTitleInput:{
-        marginTop: 15,//MARGEN ENTRE CADA INPUT CON TITULO
+        marginTop: 18,//MARGEN ENTRE CADA INPUT CON TITULO
         color: MyColors.primary,
+        fontSize: 15,
     },
     formInput: {
         flexDirection:'row'
@@ -78,6 +79,35 @@ const RegisterStyles = StyleSheet.create({
         fontSize:20,
         fontWeight: 'bold',
     },
+    loading:
+    {
+        position: 'absolute',
+        bottom: 0,
+        top: 0,
+        right: 0,
+        left: 0,
+    },
+    formSelect: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 30,
+        marginBottom: 5,
+      },
+      formPicker: {
+        flex: 1,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: "red",
+        backgroundColor: "white",
+        height: 40,
+      },
+      titlePickerItem: {
+        borderRadius: 10,
+        borderWidth: 1,
+        color: "black",
+        fontSize: 16,
+        fontWeight: "bold",
+      }
     
 });
 

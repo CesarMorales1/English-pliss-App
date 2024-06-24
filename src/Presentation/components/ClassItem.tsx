@@ -3,13 +3,20 @@ import {
 } from 'react-native'
 
 import { ClassProps } from './ClassList'
-
+// componente la clase  id..titulo
 // Libreria para mostrar menu - editar y eliminar
 import { Menu, MenuOption, MenuOptions, MenuTrigger } from 'react-native-popup-menu'
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '../../../App';
 
 import { MyColors } from '../theme/AppTheme'
 
 export default function ClassItem({ classItem, isTeacher = false }: { classItem: ClassProps, isTeacher?: boolean }) {
+ const navigation = useNavigation<NavigationProp<RootStackParamList>>();  // Tipar correctamente el hook useNavigation
+  //TODO: Aqui es la vista de yurimar
+  const handlePlayPress = () => {
+    navigation.navigate('VideoClassScreen',{videTitle: classItem.title,videoDescription: classItem.description, videoDuration: classItem.duration});
+  };
   return (
     <View style={styles.listItem} >
       <Menu>
@@ -44,7 +51,7 @@ export default function ClassItem({ classItem, isTeacher = false }: { classItem:
           { classItem.duration } mins
         </Text>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handlePlayPress}>
         <Image source={require("../../../assets/play.png")} />
       </TouchableOpacity>
     </View>
@@ -104,7 +111,7 @@ const styles = StyleSheet.create({
   },
   
   listDetailsTitle: {
-    fontSize: 20
+    fontSize: 18,
   },
   
   listDuration: {
